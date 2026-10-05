@@ -113,7 +113,7 @@ export default function AdminDashboardPage() {
 
   if (authLoading || (!user || user.role === 'customer')) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-20 text-center text-zinc-400">
+      <div className="max-w-4xl mx-auto px-4 py-20 text-center text-[#5f5f5d]">
         Verifying role credentials...
       </div>
     );
@@ -122,18 +122,18 @@ export default function AdminDashboardPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
       {/* Header */}
-      <div className="border-b border-zinc-800 pb-6 flex items-center justify-between">
+      <div className="border-b border-[#eceae4] pb-6 flex items-center justify-between">
         <div>
-          <span className="text-xs font-bold uppercase tracking-widest text-amber-500">ADMIN CONTROL CENTER</span>
-          <h1 className="text-3xl font-black uppercase text-white font-serif">Ember Edge Dashboard</h1>
+          <span className="text-xs font-bold uppercase tracking-widest text-[#e58a2b]">ADMIN CONTROL CENTER</span>
+          <h1 className="text-3xl font-black uppercase text-[#1c1c1c] font-serif">Ember Edge Dashboard</h1>
         </div>
         <div className="flex items-center space-x-2">
-          <span className="bg-amber-500/20 text-amber-400 text-xs font-bold px-3 py-1 uppercase rounded border border-amber-500/30">
+          <span className="bg-[#e58a2b]/10 text-[#e58a2b] text-xs font-bold px-3 py-1 uppercase rounded-full border border-[#e58a2b]/30">
             ROLE: {user.role.toUpperCase()}
           </span>
           <button
             onClick={loadAdminData}
-            className="bg-zinc-900 border border-zinc-800 text-zinc-300 p-2 hover:text-white"
+            className="bg-[#f7f4ed] border border-[#eceae4] text-[#1c1c1c] p-2 rounded-md hover:bg-[#5f5f5d]/10 transition-colors"
             title="Refresh Data"
           >
             <RefreshCw className="w-4 h-4" />
@@ -142,35 +142,35 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Navigation Tabs */}
-      <div className="flex space-x-2 border-b border-zinc-900 pb-4">
+      <div className="flex flex-wrap gap-2 border-b border-[#eceae4] pb-4">
         <button
           onClick={() => setActiveTab('stats')}
-          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors ${
-            activeTab === 'stats' ? 'bg-amber-500 text-black' : 'bg-zinc-900 text-zinc-400 hover:text-white'
+          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-full transition-colors ${
+            activeTab === 'stats' ? 'bg-[#1c1c1c] text-[#fcfbf8]' : 'bg-[#5f5f5d]/10 text-[#5f5f5d] hover:text-[#1c1c1c]'
           }`}
         >
           Stats & Revenue
         </button>
         <button
           onClick={() => setActiveTab('orders')}
-          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors ${
-            activeTab === 'orders' ? 'bg-amber-500 text-black' : 'bg-zinc-900 text-zinc-400 hover:text-white'
+          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-full transition-colors ${
+            activeTab === 'orders' ? 'bg-[#1c1c1c] text-[#fcfbf8]' : 'bg-[#5f5f5d]/10 text-[#5f5f5d] hover:text-[#1c1c1c]'
           }`}
         >
           Manage Orders ({orders.length})
         </button>
         <button
           onClick={() => setActiveTab('products')}
-          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors ${
-            activeTab === 'products' ? 'bg-amber-500 text-black' : 'bg-zinc-900 text-zinc-400 hover:text-white'
+          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-full transition-colors ${
+            activeTab === 'products' ? 'bg-[#1c1c1c] text-[#fcfbf8]' : 'bg-[#5f5f5d]/10 text-[#5f5f5d] hover:text-[#1c1c1c]'
           }`}
         >
           Product Inventory ({products.length})
         </button>
         <button
           onClick={() => setActiveTab('create_product')}
-          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors flex items-center space-x-1 ${
-            activeTab === 'create_product' ? 'bg-amber-500 text-black' : 'bg-zinc-900 text-zinc-400 hover:text-white'
+          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-full transition-colors flex items-center space-x-1 ${
+            activeTab === 'create_product' ? 'bg-[#1c1c1c] text-[#fcfbf8]' : 'bg-[#5f5f5d]/10 text-[#5f5f5d] hover:text-[#1c1c1c]'
           }`}
         >
           <Plus className="w-3.5 h-3.5" />
@@ -183,24 +183,24 @@ export default function AdminDashboardPage() {
         <div className="space-y-8 animate-fadeIn">
           {/* Stat Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-zinc-950 border border-zinc-850 p-6 space-y-2">
-              <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Total Sales Revenue</span>
-              <p className="text-2xl font-mono font-bold text-amber-400">Rs. {numberFormat(stats.total_revenue || 0)}</p>
+            <div className="bg-[#f7f4ed] border border-[#eceae4] rounded-xl p-6 space-y-2">
+              <span className="text-[10px] font-bold text-[#5f5f5d] uppercase tracking-widest">Total Sales Revenue</span>
+              <p className="text-2xl font-mono font-bold text-[#e58a2b]">Rs. {numberFormat(stats.total_revenue || 0)}</p>
             </div>
 
-            <div className="bg-zinc-950 border border-zinc-850 p-6 space-y-2">
-              <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Total Orders</span>
-              <p className="text-2xl font-mono font-bold text-white">{stats.total_orders || 0}</p>
+            <div className="bg-[#f7f4ed] border border-[#eceae4] rounded-xl p-6 space-y-2">
+              <span className="text-[10px] font-bold text-[#5f5f5d] uppercase tracking-widest">Total Orders</span>
+              <p className="text-2xl font-mono font-bold text-[#1c1c1c]">{stats.total_orders || 0}</p>
             </div>
 
-            <div className="bg-zinc-950 border border-zinc-850 p-6 space-y-2">
-              <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Pending Orders</span>
-              <p className="text-2xl font-mono font-bold text-yellow-400">{stats.pending_orders || 0}</p>
+            <div className="bg-[#f7f4ed] border border-[#eceae4] rounded-xl p-6 space-y-2">
+              <span className="text-[10px] font-bold text-[#5f5f5d] uppercase tracking-widest">Pending Orders</span>
+              <p className="text-2xl font-mono font-bold text-[#e58a2b]">{stats.pending_orders || 0}</p>
             </div>
 
-            <div className="bg-zinc-950 border border-zinc-850 p-6 space-y-2">
-              <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Total Products</span>
-              <p className="text-2xl font-mono font-bold text-white">{stats.total_products || 0}</p>
+            <div className="bg-[#f7f4ed] border border-[#eceae4] rounded-xl p-6 space-y-2">
+              <span className="text-[10px] font-bold text-[#5f5f5d] uppercase tracking-widest">Total Products</span>
+              <p className="text-2xl font-mono font-bold text-[#1c1c1c]">{stats.total_products || 0}</p>
             </div>
           </div>
         </div>
@@ -208,15 +208,15 @@ export default function AdminDashboardPage() {
 
       {/* Tab 2: Manage Orders */}
       {activeTab === 'orders' && (
-        <div className="bg-zinc-950 border border-zinc-850 p-6 space-y-6 animate-fadeIn">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-white border-b border-zinc-800 pb-3">
+        <div className="bg-[#f7f4ed] border border-[#eceae4] rounded-xl p-6 space-y-6 animate-fadeIn">
+          <h2 className="text-xs font-bold uppercase tracking-wider text-[#1c1c1c] border-b border-[#eceae4] pb-3">
             Customer Orders & Status Fulfillment
           </h2>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-zinc-300">
+            <table className="w-full text-left text-xs text-[#1c1c1c]">
               <thead>
-                <tr className="bg-zinc-900 border-b border-zinc-800 text-white uppercase font-mono">
+                <tr className="bg-[#eceae4]/60 border-b border-[#eceae4] text-[#1c1c1c] uppercase font-mono">
                   <th className="p-3">Order Ref</th>
                   <th className="p-3">Customer</th>
                   <th className="p-3">Status</th>
@@ -225,23 +225,23 @@ export default function AdminDashboardPage() {
                   <th className="p-3">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-900 font-mono">
+              <tbody className="divide-y divide-[#eceae4] font-mono">
                 {orders.map((ord) => (
-                  <tr key={ord.id} className="hover:bg-zinc-900/50">
-                    <td className="p-3 font-bold text-amber-400">{ord.order_number}</td>
+                  <tr key={ord.id} className="hover:bg-[#5f5f5d]/5">
+                    <td className="p-3 font-bold text-[#e58a2b]">{ord.order_number}</td>
                     <td className="p-3 font-sans">
                       {ord.user ? ord.user.name : (ord.shipping_address?.first_name || 'Guest')}
-                      <span className="block text-[10px] text-zinc-500 font-mono">{ord.shipping_address?.email || ord.guest_email}</span>
+                      <span className="block text-[10px] text-[#5f5f5d] font-mono">{ord.shipping_address?.email || ord.guest_email}</span>
                     </td>
                     <td className="p-3">
-                      <span className="px-2 py-0.5 text-[10px] uppercase font-bold bg-zinc-900 text-amber-400 border border-amber-500/30">
+                      <span className="px-2.5 py-0.5 text-[10px] uppercase font-bold rounded-full bg-[#e58a2b]/10 text-[#e58a2b] border border-[#e58a2b]/30">
                         {ord.status}
                       </span>
                     </td>
-                    <td className="p-3 uppercase font-sans text-zinc-400">
+                    <td className="p-3 uppercase font-sans text-[#5f5f5d]">
                       {ord.payment_method} ({ord.payment_status})
                     </td>
-                    <td className="p-3 text-white font-bold">Rs. {numberFormat(ord.total_amount)}</td>
+                    <td className="p-3 text-[#1c1c1c] font-bold">Rs. {numberFormat(ord.total_amount)}</td>
                     <td className="p-3">
                       <button
                         onClick={() => {
@@ -249,7 +249,7 @@ export default function AdminDashboardPage() {
                           setNewStatus(ord.status);
                           setNewTracking(ord.tracking_number || '');
                         }}
-                        className="bg-amber-500 text-black px-3 py-1 font-sans font-bold text-[10px] uppercase hover:bg-amber-400"
+                        className="bg-[#1c1c1c] text-[#fcfbf8] px-3 py-1 font-sans font-bold text-[10px] uppercase rounded-md hover:bg-[#1c1c1c]/80 transition-colors"
                       >
                         Change Status
                       </button>
@@ -264,28 +264,28 @@ export default function AdminDashboardPage() {
 
       {/* Tab 3: Products */}
       {activeTab === 'products' && (
-        <div className="bg-zinc-950 border border-zinc-850 p-6 space-y-6 animate-fadeIn">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-white border-b border-zinc-800 pb-3">
+        <div className="bg-[#f7f4ed] border border-[#eceae4] rounded-xl p-6 space-y-6 animate-fadeIn">
+          <h2 className="text-xs font-bold uppercase tracking-wider text-[#1c1c1c] border-b border-[#eceae4] pb-3">
             Product Catalog Inventory
           </h2>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-zinc-300">
+            <table className="w-full text-left text-xs text-[#1c1c1c]">
               <thead>
-                <tr className="bg-zinc-900 border-b border-zinc-800 text-white uppercase font-mono">
+                <tr className="bg-[#eceae4]/60 border-b border-[#eceae4] text-[#1c1c1c] uppercase font-mono">
                   <th className="p-3">Product Name</th>
                   <th className="p-3">Category</th>
                   <th className="p-3">Base Price</th>
                   <th className="p-3">Variants</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-900">
+              <tbody className="divide-y divide-[#eceae4]">
                 {products.map((p) => (
-                  <tr key={p.id} className="hover:bg-zinc-900/50">
-                    <td className="p-3 font-bold text-white uppercase">{p.name}</td>
-                    <td className="p-3 text-zinc-400">{p.category?.name || 'Category'}</td>
-                    <td className="p-3 font-mono text-amber-400">Rs. {numberFormat(p.price)}</td>
-                    <td className="p-3 font-mono text-xs">
+                  <tr key={p.id} className="hover:bg-[#5f5f5d]/5">
+                    <td className="p-3 font-bold text-[#1c1c1c] uppercase">{p.name}</td>
+                    <td className="p-3 text-[#5f5f5d]">{p.category?.name || 'Category'}</td>
+                    <td className="p-3 font-mono text-[#e58a2b]">Rs. {numberFormat(p.price)}</td>
+                    <td className="p-3 font-mono text-xs text-[#5f5f5d]">
                       {p.variants?.map((v: any) => `${v.color}/${v.size} (${v.stock_quantity})`).join(', ')}
                     </td>
                   </tr>
@@ -298,37 +298,37 @@ export default function AdminDashboardPage() {
 
       {/* Tab 4: Create Product */}
       {activeTab === 'create_product' && (
-        <div className="bg-zinc-950 border border-zinc-850 p-6 sm:p-8 space-y-6 max-w-2xl animate-fadeIn">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-white border-b border-zinc-800 pb-3">
+        <div className="bg-[#f7f4ed] border border-[#eceae4] rounded-xl p-6 sm:p-8 space-y-6 max-w-2xl animate-fadeIn">
+          <h2 className="text-xs font-bold uppercase tracking-wider text-[#1c1c1c] border-b border-[#eceae4] pb-3">
             Create New Product & Variant Matrix
           </h2>
 
           {prodMsg && (
-            <div className={`p-3 border text-xs ${prodMsg.includes('success') ? 'bg-green-900/30 border-green-700 text-green-300' : 'bg-red-900/30 border-red-700 text-red-300'}`}>
+            <div className={`p-3 border text-xs rounded-lg ${prodMsg.includes('success') ? 'bg-[#e58a2b]/10 border-[#e58a2b]/30 text-[#e58a2b]' : 'bg-red-500/10 border-red-500/30 text-red-600'}`}>
               {prodMsg}
             </div>
           )}
 
           <form onSubmit={handleCreateProduct} className="space-y-4 text-xs">
             <div>
-              <label className="text-zinc-400 block mb-1">Product Title *</label>
+              <label className="text-[#5f5f5d] block mb-1">Product Title *</label>
               <input
                 type="text"
                 required
                 value={newProdName}
                 onChange={(e) => setNewProdName(e.target.value)}
                 placeholder="e.g. Minimalist Linen Shirt"
-                className="w-full bg-zinc-900 border border-zinc-800 p-3 text-white focus:outline-none focus:border-amber-500"
+                className="w-full bg-[#f7f4ed]/50 border border-[#eceae4] p-3 text-[#1c1c1c] rounded-md focus:outline-none focus:border-[#e58a2b]"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-zinc-400 block mb-1">Category *</label>
+                <label className="text-[#5f5f5d] block mb-1">Category *</label>
                 <select
                   value={newProdCategory}
                   onChange={(e) => setNewProdCategory(Number(e.target.value))}
-                  className="w-full bg-zinc-900 border border-zinc-800 p-3 text-white focus:outline-none focus:border-amber-500"
+                  className="w-full bg-[#f7f4ed]/50 border border-[#eceae4] p-3 text-[#1c1c1c] rounded-md focus:outline-none focus:border-[#e58a2b]"
                 >
                   {categories.map((c) => (
                     <option key={c.id} value={c.id}>{c.name}</option>
@@ -337,70 +337,70 @@ export default function AdminDashboardPage() {
               </div>
 
               <div>
-                <label className="text-zinc-400 block mb-1">Price (PKR) *</label>
+                <label className="text-[#5f5f5d] block mb-1">Price (PKR) *</label>
                 <input
                   type="number"
                   required
                   value={newProdPrice}
                   onChange={(e) => setNewProdPrice(e.target.value)}
-                  className="w-full bg-zinc-900 border border-zinc-800 p-3 text-white focus:outline-none focus:border-amber-500"
+                  className="w-full bg-[#f7f4ed]/50 border border-[#eceae4] p-3 text-[#1c1c1c] rounded-md focus:outline-none focus:border-[#e58a2b]"
                 />
               </div>
             </div>
 
             <div>
-              <label className="text-zinc-400 block mb-1">Image URL</label>
+              <label className="text-[#5f5f5d] block mb-1">Image URL</label>
               <input
                 type="text"
                 value={newProdImg}
                 onChange={(e) => setNewProdImg(e.target.value)}
-                className="w-full bg-zinc-900 border border-zinc-800 p-3 text-white focus:outline-none focus:border-amber-500"
+                className="w-full bg-[#f7f4ed]/50 border border-[#eceae4] p-3 text-[#1c1c1c] rounded-md focus:outline-none focus:border-[#e58a2b]"
               />
             </div>
 
             <div>
-              <label className="text-zinc-400 block mb-1">Description</label>
+              <label className="text-[#5f5f5d] block mb-1">Description</label>
               <textarea
                 rows={3}
                 value={newProdDesc}
                 onChange={(e) => setNewProdDesc(e.target.value)}
-                className="w-full bg-zinc-900 border border-zinc-800 p-3 text-white focus:outline-none focus:border-amber-500"
+                className="w-full bg-[#f7f4ed]/50 border border-[#eceae4] p-3 text-[#1c1c1c] rounded-md focus:outline-none focus:border-[#e58a2b]"
               />
             </div>
 
-            <div className="pt-2 border-t border-zinc-900 grid grid-cols-3 gap-3">
+            <div className="pt-2 border-t border-[#eceae4] grid grid-cols-3 gap-3">
               <div>
-                <label className="text-zinc-400 block mb-1">Initial Color</label>
+                <label className="text-[#5f5f5d] block mb-1">Initial Color</label>
                 <input
                   type="text"
                   value={variantColor}
                   onChange={(e) => setVariantColor(e.target.value)}
-                  className="w-full bg-zinc-900 border border-zinc-800 p-2.5 text-white"
+                  className="w-full bg-[#f7f4ed]/50 border border-[#eceae4] p-2.5 text-[#1c1c1c] rounded-md"
                 />
               </div>
               <div>
-                <label className="text-zinc-400 block mb-1">Initial Size</label>
+                <label className="text-[#5f5f5d] block mb-1">Initial Size</label>
                 <input
                   type="text"
                   value={variantSize}
                   onChange={(e) => setVariantSize(e.target.value)}
-                  className="w-full bg-zinc-900 border border-zinc-800 p-2.5 text-white"
+                  className="w-full bg-[#f7f4ed]/50 border border-[#eceae4] p-2.5 text-[#1c1c1c] rounded-md"
                 />
               </div>
               <div>
-                <label className="text-zinc-400 block mb-1">Stock Quantity</label>
+                <label className="text-[#5f5f5d] block mb-1">Stock Quantity</label>
                 <input
                   type="number"
                   value={variantStock}
                   onChange={(e) => setVariantStock(e.target.value)}
-                  className="w-full bg-zinc-900 border border-zinc-800 p-2.5 text-white"
+                  className="w-full bg-[#f7f4ed]/50 border border-[#eceae4] p-2.5 text-[#1c1c1c] rounded-md"
                 />
               </div>
             </div>
 
             <button
               type="submit"
-              className="w-full bg-amber-500 hover:bg-amber-400 text-black py-3.5 text-xs font-bold uppercase tracking-wider"
+              className="w-full bg-[#1c1c1c] hover:bg-[#1c1c1c]/90 text-[#fcfbf8] py-3.5 text-xs font-bold uppercase tracking-wider rounded-md inset-shadow-btn transition-all glow-focus"
             >
               Create Product & Seed Variant
             </button>
@@ -410,16 +410,16 @@ export default function AdminDashboardPage() {
 
       {/* Modal for Order Status Update */}
       {updatingOrderId && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80">
-          <div className="bg-zinc-950 border border-zinc-800 p-6 max-w-md w-full space-y-4">
-            <h3 className="text-xs font-bold uppercase text-white">Update Order Status</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1c1c1c]/40 backdrop-blur-sm">
+          <div className="bg-[#f7f4ed] border border-[#eceae4] rounded-xl p-6 max-w-md w-full space-y-4 shadow-[rgba(0,0,0,0.1)_0px_4px_12px]">
+            <h3 className="text-xs font-bold uppercase text-[#1c1c1c]">Update Order Status</h3>
 
             <div>
-              <label className="text-xs text-zinc-400 block mb-1">Status</label>
+              <label className="text-xs text-[#5f5f5d] block mb-1">Status</label>
               <select
                 value={newStatus}
                 onChange={(e) => setNewStatus(e.target.value)}
-                className="w-full bg-zinc-900 border border-zinc-800 text-white text-xs p-3"
+                className="w-full bg-[#f7f4ed]/50 border border-[#eceae4] text-[#1c1c1c] text-xs p-3 rounded-md"
               >
                 <option value="pending">Pending</option>
                 <option value="confirmed">Confirmed</option>
@@ -433,26 +433,26 @@ export default function AdminDashboardPage() {
             </div>
 
             <div>
-              <label className="text-xs text-zinc-400 block mb-1">Tracking Number</label>
+              <label className="text-xs text-[#5f5f5d] block mb-1">Tracking Number</label>
               <input
                 type="text"
                 value={newTracking}
                 onChange={(e) => setNewTracking(e.target.value)}
                 placeholder="TRK-98765432"
-                className="w-full bg-zinc-900 border border-zinc-800 text-white text-xs p-3"
+                className="w-full bg-[#f7f4ed]/50 border border-[#eceae4] text-[#1c1c1c] text-xs p-3 rounded-md"
               />
             </div>
 
             <div className="flex space-x-2 pt-2">
               <button
                 onClick={() => handleUpdateStatus(updatingOrderId)}
-                className="flex-1 bg-amber-500 hover:bg-amber-400 text-black py-2.5 font-bold uppercase text-xs"
+                className="flex-1 bg-[#1c1c1c] hover:bg-[#1c1c1c]/90 text-[#fcfbf8] py-2.5 font-bold uppercase text-xs rounded-md inset-shadow-btn transition-all glow-focus"
               >
                 Save Status
               </button>
               <button
                 onClick={() => setUpdatingOrderId(null)}
-                className="px-4 bg-zinc-800 text-white text-xs font-bold uppercase"
+                className="px-4 border border-[#eceae4] text-[#1c1c1c] hover:bg-[#5f5f5d]/10 text-xs font-bold uppercase rounded-md transition-colors"
               >
                 Cancel
               </button>

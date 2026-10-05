@@ -35,8 +35,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className="bg-[#0B0B0C] text-zinc-100 min-h-screen flex flex-col font-sans antialiased">
+    <html lang="en" className="light">
+      <body className="bg-[#f7f4ed] text-[#1c1c1c] min-h-screen flex flex-col font-sans antialiased">
         <AuthProvider>
           <CartProvider>
             <WishlistProvider>

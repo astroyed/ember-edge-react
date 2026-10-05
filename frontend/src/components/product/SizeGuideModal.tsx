@@ -44,31 +44,31 @@ export const SizeGuideModal: React.FC<SizeGuideModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4">
       {/* Backdrop */}
-      <div className="fixed inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
+      <div className="fixed inset-0 bg-[#1c1c1c]/40 backdrop-blur-sm" onClick={onClose} />
 
       {/* Modal Content */}
-      <div className="relative bg-zinc-950 border border-zinc-800 text-white w-full max-w-2xl rounded-none p-6 sm:p-8 shadow-2xl z-10 animate-fadeIn">
-        <div className="flex items-center justify-between border-b border-zinc-800 pb-4 mb-6">
+      <div className="relative bg-[#f7f4ed] border border-[#eceae4] text-[#1c1c1c] w-full max-w-2xl rounded-xl p-6 sm:p-8 shadow-[rgba(0,0,0,0.1)_0px_4px_12px] z-10 animate-fadeIn">
+        <div className="flex items-center justify-between border-b border-[#eceae4] pb-4 mb-6">
           <div className="flex items-center space-x-3">
-            <Ruler className="w-5 h-5 text-amber-500" />
-            <h2 className="text-sm font-bold uppercase tracking-wider">Ember Edge Size Guide</h2>
+            <Ruler className="w-5 h-5 text-[#e58a2b]" />
+            <h2 className="text-sm font-bold uppercase tracking-wider text-[#1c1c1c]">Ember Edge Size Guide</h2>
           </div>
-          <button onClick={onClose} className="text-zinc-400 hover:text-white p-2">
+          <button onClick={onClose} className="text-[#5f5f5d] hover:text-[#1c1c1c] p-2 rounded-full hover:bg-[#5f5f5d]/10 transition-colors">
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Tabs & Unit Switcher */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 border-b border-zinc-900 pb-4">
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 border-b border-[#eceae4] pb-4">
           <div className="flex space-x-2">
             {(['men', 'women', 'kids'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors ${
+                className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-full transition-colors ${
                   activeTab === tab
-                    ? 'bg-amber-500 text-black'
-                    : 'bg-zinc-900 text-zinc-400 hover:text-white'
+                    ? 'bg-[#1c1c1c] text-[#fcfbf8]'
+                    : 'bg-[#5f5f5d]/10 text-[#5f5f5d] hover:text-[#1c1c1c]'
                 }`}
               >
                 {tab}
@@ -76,16 +76,16 @@ export const SizeGuideModal: React.FC<SizeGuideModalProps> = ({
             ))}
           </div>
 
-          <div className="flex items-center space-x-1 bg-zinc-900 p-1 border border-zinc-800 text-xs">
+          <div className="flex items-center space-x-1 bg-[#5f5f5d]/10 p-1 rounded-full border border-[#eceae4] text-xs">
             <button
               onClick={() => setUnit('inches')}
-              className={`px-3 py-1 font-mono uppercase ${unit === 'inches' ? 'bg-zinc-800 text-amber-400 font-bold' : 'text-zinc-400'}`}
+              className={`px-3 py-1 font-mono uppercase rounded-full transition-colors ${unit === 'inches' ? 'bg-[#1c1c1c] text-[#fcfbf8] font-bold' : 'text-[#5f5f5d]'}`}
             >
               Inches
             </button>
             <button
               onClick={() => setUnit('cm')}
-              className={`px-3 py-1 font-mono uppercase ${unit === 'cm' ? 'bg-zinc-800 text-amber-400 font-bold' : 'text-zinc-400'}`}
+              className={`px-3 py-1 font-mono uppercase rounded-full transition-colors ${unit === 'cm' ? 'bg-[#1c1c1c] text-[#fcfbf8] font-bold' : 'text-[#5f5f5d]'}`}
             >
               CM
             </button>
@@ -94,9 +94,9 @@ export const SizeGuideModal: React.FC<SizeGuideModalProps> = ({
 
         {/* Table View */}
         <div className="overflow-x-auto mb-6">
-          <table className="w-full text-left text-xs text-zinc-300">
+          <table className="w-full text-left text-xs text-[#1c1c1c]">
             <thead>
-              <tr className="bg-zinc-900 border-b border-zinc-800 text-white uppercase font-mono">
+              <tr className="bg-[#eceae4]/60 border-b border-[#eceae4] text-[#1c1c1c] uppercase font-mono">
                 <th className="p-3">Size</th>
                 {activeTab === 'men' && (
                   <>
@@ -120,16 +120,16 @@ export const SizeGuideModal: React.FC<SizeGuideModalProps> = ({
                 )}
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-900 font-mono">
+            <tbody className="divide-y divide-[#eceae4] font-mono">
               {sizeData[activeTab].map((row, idx) => (
-                <tr key={idx} className="hover:bg-zinc-900/50 transition-colors">
-                  <td className="p-3 font-bold text-amber-400">{row.size}</td>
-                  {'chest' in row && <td className="p-3">{row.chest}</td>}
-                  {'bust' in row && <td className="p-3">{row.bust}</td>}
-                  {'waist' in row && <td className="p-3">{row.waist}</td>}
-                  {'shoulder' in row && <td className="p-3">{row.shoulder}</td>}
-                  {'hips' in row && <td className="p-3">{row.hips}</td>}
-                  {'height' in row && <td className="p-3">{row.height}</td>}
+                <tr key={idx} className="hover:bg-[#5f5f5d]/5 transition-colors">
+                  <td className="p-3 font-bold text-[#e58a2b]">{row.size}</td>
+                  {'chest' in row && <td className="p-3 text-[#5f5f5d]">{row.chest}</td>}
+                  {'bust' in row && <td className="p-3 text-[#5f5f5d]">{row.bust}</td>}
+                  {'waist' in row && <td className="p-3 text-[#5f5f5d]">{row.waist}</td>}
+                  {'shoulder' in row && <td className="p-3 text-[#5f5f5d]">{row.shoulder}</td>}
+                  {'hips' in row && <td className="p-3 text-[#5f5f5d]">{row.hips}</td>}
+                  {'height' in row && <td className="p-3 text-[#5f5f5d]">{row.height}</td>}
                 </tr>
               ))}
             </tbody>
@@ -137,8 +137,8 @@ export const SizeGuideModal: React.FC<SizeGuideModalProps> = ({
         </div>
 
         {/* Measurement Advice Box */}
-        <div className="bg-zinc-900 border border-zinc-800 p-4 text-xs text-zinc-400 space-y-1">
-          <p className="font-semibold text-white uppercase">How to Measure:</p>
+        <div className="bg-[#eceae4]/40 border border-[#eceae4] rounded-lg p-4 text-xs text-[#5f5f5d] space-y-1">
+          <p className="font-semibold text-[#1c1c1c] uppercase">How to Measure:</p>
           <p>• <strong>Chest / Bust:</strong> Measure around the fullest part of your chest, keeping the tape horizontal.</p>
           <p>• <strong>Waist:</strong> Measure around your natural waistline, keeping tape comfortably loose.</p>
           <p>• <strong>Oversized Fits:</strong> Our oversized streetwear tops have a drop-shoulder cut. Order your true size for the intended relaxed drape.</p>

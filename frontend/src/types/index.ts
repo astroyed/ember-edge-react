@@ -24,6 +24,7 @@ export interface ProductVariant {
   size: string;
   price?: number;
   sale_price?: number;
+  effective_price?: number;
   stock_quantity: number;
   status: 'active' | 'inactive';
 }

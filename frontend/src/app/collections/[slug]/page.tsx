@@ -31,7 +31,7 @@ export default function CollectionPage() {
     },
     women: {
       title: "WOMEN'S COLLECTION",
-      subtitle: "Fluid mulberry silk gowns, structured power blazers & ribbed cashmere knitwear.",
+      subtitle: "Fluid mulberry silk gowns, structured power blazers & ribbed cashmere knits.",
     },
     kids: {
       title: "KIDS ESSENTIALS",
@@ -55,21 +55,21 @@ export default function CollectionPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
       {/* Banner */}
-      <div className="bg-zinc-950 border border-zinc-850 p-8 sm:p-12 text-center space-y-3">
-        <span className="text-xs font-bold uppercase tracking-[0.25em] text-amber-500">EMBER EDGE ATELIER</span>
-        <h1 className="text-3xl sm:text-5xl font-black uppercase text-white font-serif">{meta.title}</h1>
-        <p className="text-xs sm:text-sm text-zinc-400 max-w-xl mx-auto font-light">{meta.subtitle}</p>
+      <div className="bg-[#f7f4ed] border border-[#eceae4] p-8 sm:p-12 text-center space-y-3">
+        <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#e58a2b]">EMBER EDGE ATELIER</span>
+        <h1 className="text-3xl sm:text-5xl font-black uppercase text-[#1c1c1c] font-serif">{meta.title}</h1>
+        <p className="text-xs sm:text-sm text-[#5f5f5d] max-w-xl mx-auto font-light">{meta.subtitle}</p>
       </div>
 
       {/* Grid */}
       {loading ? (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 animate-pulse">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="h-80 bg-zinc-900 border border-zinc-850" />
+            <div key={i} className="h-80 bg-[#5f5f5d]/10 border border-[#eceae4] rounded-xl" />
           ))}
         </div>
       ) : products.length === 0 ? (
-        <div className="text-center py-20 text-zinc-500 text-xs uppercase">
+        <div className="text-center py-20 text-[#5f5f5d] text-xs uppercase">
           No products currently available in this collection.
         </div>
       ) : (

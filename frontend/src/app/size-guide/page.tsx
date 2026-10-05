@@ -31,23 +31,23 @@ export default function StandaloneSizeGuidePage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
-      <div className="bg-zinc-950 border border-zinc-850 p-8 text-center space-y-3">
-        <span className="text-xs font-bold uppercase tracking-[0.25em] text-amber-500">FITMENT GUIDANCE</span>
-        <h1 className="text-3xl font-black uppercase text-white font-serif">Master Size Guide</h1>
-        <p className="text-xs text-zinc-400 max-w-md mx-auto">
+      <div className="bg-[#f7f4ed] border border-[#eceae4] rounded-xl p-8 text-center space-y-3">
+        <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#e58a2b]">FITMENT GUIDANCE</span>
+        <h1 className="text-3xl font-black uppercase text-[#1c1c1c] font-serif">Master Size Guide</h1>
+        <p className="text-xs text-[#5f5f5d] max-w-md mx-auto">
           Ensure your Ember Edge silhouette fits with precision. Use our body measurement tables below.
         </p>
       </div>
 
-      <div className="bg-zinc-950 border border-zinc-850 p-6 sm:p-8 space-y-6">
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-900 pb-4">
+      <div className="bg-[#f7f4ed] border border-[#eceae4] rounded-xl p-6 sm:p-8 space-y-6">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#eceae4] pb-4">
           <div className="flex space-x-2">
             {(['men', 'women', 'kids'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors ${
-                  activeTab === tab ? 'bg-amber-500 text-black' : 'bg-zinc-900 text-zinc-400 hover:text-white'
+                className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-full transition-colors ${
+                  activeTab === tab ? 'bg-[#1c1c1c] text-[#fcfbf8]' : 'bg-[#5f5f5d]/10 text-[#5f5f5d] hover:text-[#1c1c1c]'
                 }`}
               >
                 {tab}
@@ -55,16 +55,16 @@ export default function StandaloneSizeGuidePage() {
             ))}
           </div>
 
-          <div className="flex items-center space-x-1 bg-zinc-900 p-1 border border-zinc-800 text-xs">
+          <div className="flex items-center space-x-1 bg-[#5f5f5d]/10 p-1 rounded-full border border-[#eceae4] text-xs">
             <button
               onClick={() => setUnit('inches')}
-              className={`px-3 py-1 font-mono uppercase ${unit === 'inches' ? 'bg-zinc-800 text-amber-400 font-bold' : 'text-zinc-400'}`}
+              className={`px-3 py-1 font-mono uppercase rounded-full transition-colors ${unit === 'inches' ? 'bg-[#1c1c1c] text-[#fcfbf8] font-bold' : 'text-[#5f5f5d]'}`}
             >
               Inches
             </button>
             <button
               onClick={() => setUnit('cm')}
-              className={`px-3 py-1 font-mono uppercase ${unit === 'cm' ? 'bg-zinc-800 text-amber-400 font-bold' : 'text-zinc-400'}`}
+              className={`px-3 py-1 font-mono uppercase rounded-full transition-colors ${unit === 'cm' ? 'bg-[#1c1c1c] text-[#fcfbf8] font-bold' : 'text-[#5f5f5d]'}`}
             >
               CM
             </button>
@@ -72,9 +72,9 @@ export default function StandaloneSizeGuidePage() {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs text-zinc-300">
+          <table className="w-full text-left text-xs text-[#1c1c1c]">
             <thead>
-              <tr className="bg-zinc-900 border-b border-zinc-800 text-white uppercase font-mono">
+              <tr className="bg-[#eceae4]/60 border-b border-[#eceae4] text-[#1c1c1c] uppercase font-mono">
                 <th className="p-3">Size</th>
                 {activeTab === 'men' && (
                   <>
@@ -98,16 +98,16 @@ export default function StandaloneSizeGuidePage() {
                 )}
               </tr>
             </thead>
-            <tbody className="divide-y divide-zinc-900 font-mono">
+            <tbody className="divide-y divide-[#eceae4] font-mono">
               {sizeData[activeTab].map((row, idx) => (
-                <tr key={idx} className="hover:bg-zinc-900/50 transition-colors">
-                  <td className="p-3 font-bold text-amber-400">{row.size}</td>
-                  {'chest' in row && <td className="p-3">{row.chest}</td>}
-                  {'bust' in row && <td className="p-3">{row.bust}</td>}
-                  {'waist' in row && <td className="p-3">{row.waist}</td>}
-                  {'shoulder' in row && <td className="p-3">{row.shoulder}</td>}
-                  {'hips' in row && <td className="p-3">{row.hips}</td>}
-                  {'height' in row && <td className="p-3">{row.height}</td>}
+                <tr key={idx} className="hover:bg-[#5f5f5d]/5 transition-colors">
+                  <td className="p-3 font-bold text-[#e58a2b]">{row.size}</td>
+                  {'chest' in row && <td className="p-3 text-[#5f5f5d]">{row.chest}</td>}
+                  {'bust' in row && <td className="p-3 text-[#5f5f5d]">{row.bust}</td>}
+                  {'waist' in row && <td className="p-3 text-[#5f5f5d]">{row.waist}</td>}
+                  {'shoulder' in row && <td className="p-3 text-[#5f5f5d]">{row.shoulder}</td>}
+                  {'hips' in row && <td className="p-3 text-[#5f5f5d]">{row.hips}</td>}
+                  {'height' in row && <td className="p-3 text-[#5f5f5d]">{row.height}</td>}
                 </tr>
               ))}
             </tbody>

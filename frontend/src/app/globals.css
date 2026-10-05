@@ -2,41 +2,49 @@
 
 @layer base {
   :root {
-    --bg-dark: #0B0B0C;
-    --bg-card: #141416;
-    --bg-card-hover: #1A1A1E;
-    --ember-accent: #E58A2B;
-    --ember-gold: #D97706;
-    --ember-light: #FBBF24;
-    --border-subtle: #27272A;
-    --text-main: #F3F4F6;
-    --text-muted: #9CA3AF;
+    /* Warm cream background */
+    --page-bg: #f7f4ed;
+    /* Charcoal text */
+    --text-primary: #1c1c1c;
+    --text-secondary: rgba(28, 28, 28, 0.82);
+    --text-muted: #5f5f5d;
+    /* Off-white for button text on dark */
+    --text-off-white: #fcfbf8;
+    /* Borders */
+    --border-light: #eceae4;
+    --border-interactive: rgba(28, 28,28, 0.4);
+    /* Accents */
+    --amber-accent: #e58a2b;
+    --amber-hover: #d97706;
+    /* Hover backgrounds */
+    --hover-bg: rgba(28, 28, 28, 0.04);
+    /* Focus shadow */
+    --focus-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    /* Ring */
+    --ring-color: rgba(59, 130, 246, 0.5);
   }
 
   body {
-    background-color: var(--bg-dark);
-    color: var(--text-main);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--page-bg);
+    color: var(--text-primary);
     overflow-x: hidden;
     scroll-behavior: smooth;
   }
 }
 
+/* Typography helpers for Camera Plain Variable fallback */
+.font-display {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-weight: 600;
+}
+
 /* Custom Utilities */
-.glass-panel {
-  background: rgba(20, 20, 22, 0.85);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.inset-shadow-btn {
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 0.5px 0px 0px inset, rgba(0, 0, 0, 0.2) 0px 0px 0px 0.5px inset, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 }
 
-.glow-ember {
-  box-shadow: 0 0 25px rgba(229, 138, 43, 0.25);
-}
-
-.text-ember-gradient {
-  background: linear-gradient(135deg, #FBBF24 0%, #E58A2B 50%, #D97706 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.glow-focus {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 /* Custom Scrollbar */
@@ -45,12 +53,12 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0B0B0C;
+  background: var(--page-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: #27272A;
+  background: var(--border-interactive);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #D97706;
+  background: var(--amber-accent);
 }
