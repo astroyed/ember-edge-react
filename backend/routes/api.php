@@ -71,8 +71,12 @@ Route::prefix('v1')->group(function () {
     Route::get('/orders/track/{trackingNumber}', [OrderController::class, 'track']);
     Route::get('/orders/{orderNumber}', [OrderController::class, 'show']);
 
-    // Banners
+    // Banners (Public active banners)
     Route::get('/banners', [BannerController::class, 'index']);
+    Route::post('/banners', [BannerController::class, 'store']);
+    Route::get('/banners/{id}', [BannerController::class, 'show']);
+    Route::put('/banners/{id}', [BannerController::class, 'update']);
+    Route::delete('/banners/{id}', [BannerController::class, 'destroy']);
 
     // Admin Panel Management API
     Route::prefix('admin')->group(function () {
@@ -81,5 +85,12 @@ Route::prefix('v1')->group(function () {
         Route::post('/products', [AdminController::class, 'storeProduct']);
         Route::get('/orders', [AdminController::class, 'orders']);
         Route::put('/orders/{id}/status', [AdminController::class, 'updateOrderStatus']);
+
+        // Admin Banners CRUD
+        Route::get('/banners', [BannerController::class, 'adminIndex']);
+        Route::post('/banners', [BannerController::class, 'store']);
+        Route::get('/banners/{id}', [BannerController::class, 'show']);
+        Route::put('/banners/{id}', [BannerController::class, 'update']);
+        Route::delete('/banners/{id}', [BannerController::class, 'destroy']);
     });
 });

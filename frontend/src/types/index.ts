@@ -172,6 +172,9 @@ export interface Banner {
   button_text: string;
   button_url: string;
   position: number;
+  is_active?: boolean;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface Review {

@@ -30,10 +30,10 @@ export const Navbar = () => {
 
   const navLinks = [
     { name: 'Shop All', href: '/shop' },
-    { name: 'Men', href: '/collections/men' },
+    // { name: 'Men', href: '/collections/men' },
     { name: 'Women', href: '/collections/women' },
-    { name: 'Kids', href: '/collections/kids' },
-    { name: 'Size Guide', href: '/size-guide' },
+    // { name: 'Kids', href: '/collections/kids' },
+    // { name: 'Size Guide', href: '/size-guide' },
     { name: 'About', href: '/about' },
     { name: 'Contact', href: '/contact' },
   ];
@@ -41,9 +41,9 @@ export const Navbar = () => {
   return (
     <>
       {/* Top Banner */}
-      <div className="bg-[#e58a2b] text-black text-xs font-semibold py-2 px-4 text-center tracking-widest uppercase">
+      {/* <div className="bg-[#e58a2b] text-black text-xs font-semibold py-2 px-4 text-center tracking-widest uppercase">
         Complimentary Express Shipping on Orders Above Rs. 5,000 | Code: <span className="underline font-extrabold">EMBER10</span>
-      </div>
+      </div> */}
 
       {/* Main Navbar */}
       <header className="sticky top-0 z-40 bg-[#f7f4ed] border-b border-[#eceae4]">
@@ -67,9 +67,9 @@ export const Navbar = () => {
                 <span className="text-2xl sm:text-3xl font-black tracking-tighter uppercase font-serif text-[#1c1c1c]">
                   EMBER <span className="text-[#e58a2b] group-hover:text-[#d97706] transition-colors">EDGE</span>
                 </span>
-                <span className="block text-[9px] tracking-[0.3em] text-[#5f5f5d] uppercase font-sans font-medium text-center md:text-left">
-                  ATELIER & STYLING
-                </span>
+                {/* <span className="block text-[9px] tracking-[0.3em] text-[#5f5f5d] uppercase font-sans font-medium text-center md:text-left">
+                  STYLE & ELEGANCE
+                </span> */}
               </Link>
             </div>
 
@@ -81,9 +81,8 @@ export const Navbar = () => {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`text-sm font-medium transition-colors hover:text-[#e58a2b] ${
-                      isActive ? 'text-[#e58a2b] font-semibold border-b-2 border-[#e58a2b] pb-1' : 'text-[#1c1c1c]'
-                    }`}
+                    className={`text-sm font-medium transition-colors hover:text-[#e58a2b] ${isActive ? 'text-[#e58a2b] font-semibold border-b-2 border-[#e58a2b] pb-1' : 'text-[#1c1c1c]'
+                      }`}
                   >
                     {link.name}
                   </Link>

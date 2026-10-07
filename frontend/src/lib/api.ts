@@ -106,6 +106,10 @@ export const api = {
 
   // Banners & Reviews
   getBanners: () => fetchApi<any>('/banners'),
+  getAdminBanners: () => fetchApi<any>('/admin/banners'),
+  createBanner: (data: any) => fetchApi<any>('/admin/banners', { method: 'POST', body: JSON.stringify(data) }),
+  updateBanner: (id: number, data: any) => fetchApi<any>(`/admin/banners/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  deleteBanner: (id: number) => fetchApi<any>(`/admin/banners/${id}`, { method: 'DELETE' }),
   getReviews: (productId: number) => fetchApi<any>(`/products/${productId}/reviews`),
   submitReview: (productId: number, data: { rating: number; comment: string }) =>
     fetchApi<any>(`/products/${productId}/reviews`, { method: 'POST', body: JSON.stringify(data) }),

@@ -45,11 +45,12 @@ export default function HomePage() {
   }, [banners]);
 
   const defaultBanner = {
-    title: 'AUTUMN / WINTER 2026 ATELIER',
+    title: 'Four Seasons Collections',
     subtitle: 'Heavyweight textiles, drop shoulders & architectural outer silhouettes.',
-    image_path: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600',
+    image_path: 'banner1.png',
     button_text: 'Explore Collection',
     button_url: '/shop',
+    position: 2
   };
 
   const activeBanner = banners[currentBanner] || defaultBanner;
@@ -58,47 +59,60 @@ export default function HomePage() {
     <div className="space-y-20 pb-20">
 
       {/* 1. HERO BANNER SLIDER */}
-      <section className="relative h-[85vh] min-h-[550px] overflow-hidden flex items-center justify-center">
+      <section className="relative h-[85vh] min-h-[550px] overflow-hidden flex items-center justify-center"
+        style={{
+          justifyContent:
+            activeBanner.position === 1 ? 'flex-start' :
+            activeBanner.position === 3 ? 'flex-end' : 'center',
+        }}
+      >
         {/* Warm gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#f7f4ed] via-[#f7f4ed] to-[#eceae4]/50 z-0" />
+        <div className="absolute inset-0 z-0" />
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
-            src={activeBanner.image_path}
+            src={'/images/' + activeBanner.image_path}
             alt={activeBanner.title}
-            className="w-full h-full object-cover object-center opacity-30 transition-all duration-1000"
+            className="w-full h-full object-cover object-center transition-all duration-1000"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#f7f4ed] via-[#f7f4ed]/60 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#f7f4ed]/40 via-transparent to-[#f7f4ed]/40" />
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center space-y-6">
-          <span className="inline-block bg-[#e58a2b] text-[#1c1c1c] text-xs font-bold uppercase tracking-[0.3em] px-4 py-1.5 rounded-full">
-            EST. 2026 • EMBER EDGE LUXURY
-          </span>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-black uppercase tracking-tight text-[#1c1c1c] font-serif leading-tight">
-            {activeBanner.title}
-          </h1>
-          <p className="text-base sm:text-lg text-[#5f5f5d] max-w-xl mx-auto font-light leading-relaxed">
-            {activeBanner.subtitle}
-          </p>
-          <div className="pt-4 flex flex-wrap justify-center gap-4">
-            <Link
-              href={activeBanner.button_url}
-              className="bg-[#1c1c1c] hover:bg-[#1c1c1c]/80 text-[#fcfbf8] px-8 py-4 text-xs font-black uppercase tracking-widest transition-all inset-shadow-btn hover:brightness-90 glow-focus flex items-center space-x-2"
+        {(() => {
+          const pos = activeBanner.position;
+          const textAlign: React.CSSProperties['textAlign'] =
+            pos === 1 ? 'left' : pos === 3 ? 'right' : 'center';
+          const justifyContent =
+            pos === 1 ? 'flex-start' : pos === 3 ? 'flex-end' : 'center';
+          return (
+            <div
+              className="relative z-10 max-w-5xl w-full px-6 sm:px-12 space-y-6"
+              style={{ textAlign }}
             >
-              <span>{activeBanner.button_text}</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/collections/men"
-              className="border border-[#5f5f5d]/40 hover:border-[#e58a2b] text-[#1c1c1c] px-8 py-4 text-xs font-bold uppercase tracking-widest transition-colors"
-            >
-              Men's Drop
-            </Link>
-          </div>
-        </div>
+              <span className="inline-block bg-[#e58a2b] text-[#1c1c1c] text-xs font-bold uppercase tracking-[0.3em] px-4 py-1.5 rounded-full">
+                EST. 2026 • EMBER EDGE LUXURY
+              </span>
+              <h1 className="text-5xl sm:text-6xl md:text-7xl font-black uppercase tracking-tight text-[#1c1c1c] font-serif leading-tight">
+                {activeBanner.title}
+              </h1>
+              <p className="text-base sm:text-lg text-[#5f5f5d] max-w-xl font-light leading-relaxed"
+                style={{ marginLeft: pos === 3 ? 'auto' : pos === 2 ? 'auto' : undefined,
+                         marginRight: pos === 1 ? 'auto' : pos === 2 ? 'auto' : undefined }}
+              >
+                {activeBanner.subtitle}
+              </p>
+              <div className="pt-4 flex flex-wrap gap-4" style={{ justifyContent }}>
+                <Link
+                  href={activeBanner.button_url}
+                  className="bg-[#1c1c1c] hover:bg-[#1c1c1c]/80 text-[#fcfbf8] px-8 py-4 text-xs font-black uppercase tracking-widest transition-all inset-shadow-btn hover:brightness-90 glow-focus flex items-center space-x-2"
+                >
+                  <span>{activeBanner.button_text}</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          );
+        })()}
 
         {/* Slider Controls */}
         {banners.length > 1 && (
@@ -107,9 +121,8 @@ export default function HomePage() {
               <button
                 key={idx}
                 onClick={() => setCurrentBanner(idx)}
-                className={`h-1.5 transition-all ${
-                  idx === currentBanner ? 'w-8 bg-[#e58a2b]' : 'w-2 bg-[#5f5f5d]/30 hover:bg-[#5f5f5d]/50'
-                }`}
+                className={`h-1.5 transition-all ${idx === currentBanner ? 'w-8 bg-[#e58a2b]' : 'w-2 bg-[#5f5f5d]/30 hover:bg-[#5f5f5d]/50'
+                  }`}
                 aria-label={`Go to slide ${idx + 1}`}
               />
             ))}

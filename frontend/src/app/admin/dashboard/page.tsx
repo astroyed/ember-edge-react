@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Package, ShoppingBag, Users, DollarSign, AlertTriangle, Plus, RefreshCw, CheckCircle, ShieldAlert } from 'lucide-react';
+import { Package, ShoppingBag, Users, DollarSign, AlertTriangle, Plus, RefreshCw, CheckCircle, ShieldAlert, Image, Trash2, Edit, Eye } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { api } from '@/lib/api';
 
@@ -15,7 +15,8 @@ export default function AdminDashboardPage() {
   const [orders, setOrders] = useState<any[]>([]);
   const [products, setProducts] = useState<any[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
-  const [activeTab, setActiveTab] = useState<'stats' | 'orders' | 'products' | 'create_product'>('stats');
+  const [banners, setBanners] = useState<any[]>([]);
+  const [activeTab, setActiveTab] = useState<'stats' | 'orders' | 'products' | 'create_product' | 'banners'>('stats');
   const [loading, setLoading] = useState(true);
 
   // New Product Form State
@@ -34,20 +35,33 @@ export default function AdminDashboardPage() {
   const [newStatus, setNewStatus] = useState('confirmed');
   const [newTracking, setNewTracking] = useState('');
 
+  // Banner form state
+  const [editingBanner, setEditingBanner] = useState<any | null>(null);
+  const [bannerTitle, setBannerTitle] = useState('');
+  const [bannerSubtitle, setBannerSubtitle] = useState('');
+  const [bannerImage, setBannerImage] = useState('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600');
+  const [bannerButtonText, setBannerButtonText] = useState('Shop Now');
+  const [bannerButtonUrl, setBannerButtonUrl] = useState('/shop');
+  const [bannerPosition, setBannerPosition] = useState(0);
+  const [bannerActive, setBannerActive] = useState(true);
+  const [bannerMsg, setBannerMsg] = useState('');
+
   const loadAdminData = async () => {
     setLoading(true);
     try {
-      const [sRes, oRes, pRes, cRes] = await Promise.all([
+      const [sRes, oRes, pRes, cRes, bRes] = await Promise.all([
         api.getAdminStats(),
         api.getAdminOrders(),
         api.getAdminProducts(),
         api.getCategories(),
+        api.getAdminBanners(),
       ]);
 
       if (sRes.success) setStats(sRes.data);
       if (oRes.success) setOrders(oRes.data?.data || oRes.data || []);
       if (pRes.success) setProducts(pRes.data?.data || pRes.data || []);
       if (cRes.success) setCategories(cRes.data || []);
+      if (bRes.success) setBanners(bRes.data || []);
     } catch (err) {
       console.error('Failed to fetch admin stats', err);
     } finally {
@@ -111,6 +125,78 @@ export default function AdminDashboardPage() {
     }
   };
 
+  const handleBannerSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setBannerMsg('');
+    try {
+      const data = {
+        title: bannerTitle,
+        subtitle: bannerSubtitle,
+        image_path: bannerImage,
+        button_text: bannerButtonText,
+        button_url: bannerButtonUrl,
+        position: bannerPosition,
+        is_active: bannerActive,
+      };
+      let res;
+      if (editingBanner) {
+        res = await api.updateBanner(editingBanner.id, data);
+      } else {
+        res = await api.createBanner(data);
+      }
+      if (res.success) {
+        setBannerMsg(editingBanner ? 'Banner updated successfully!' : 'Banner created successfully!');
+        setEditingBanner(null);
+        setBannerTitle('');
+        setBannerSubtitle('');
+        setBannerImage('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600');
+        setBannerButtonText('Shop Now');
+        setBannerButtonUrl('/shop');
+        setBannerPosition(0);
+        setBannerActive(true);
+        loadAdminData();
+      }
+    } catch (err: any) {
+      setBannerMsg(err.message || 'Failed to save banner.');
+    }
+  };
+
+  const handleEditBanner = (banner: any) => {
+    setEditingBanner(banner);
+    setBannerTitle(banner.title);
+    setBannerSubtitle(banner.subtitle || '');
+    setBannerImage(banner.image_path);
+    setBannerButtonText(banner.button_text || 'Shop Now');
+    setBannerButtonUrl(banner.button_url || '/shop');
+    setBannerPosition(banner.position || 0);
+    setBannerActive(banner.is_active);
+    setBannerMsg('');
+  };
+
+  const handleDeleteBanner = async (id: number) => {
+    if (!confirm('Are you sure you want to delete this banner?')) return;
+    try {
+      const res = await api.deleteBanner(id);
+      if (res.success) {
+        loadAdminData();
+      }
+    } catch (err: any) {
+      alert(err.message || 'Failed to delete banner.');
+    }
+  };
+
+  const handleNewBanner = () => {
+    setEditingBanner(null);
+    setBannerTitle('');
+    setBannerSubtitle('');
+    setBannerImage('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1600');
+    setBannerButtonText('Shop Now');
+    setBannerButtonUrl('/shop');
+    setBannerPosition(0);
+    setBannerActive(true);
+    setBannerMsg('');
+  };
+
   if (authLoading || (!user || user.role === 'customer')) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-20 text-center text-[#5f5f5d]">
@@ -166,6 +252,14 @@ export default function AdminDashboardPage() {
           }`}
         >
           Product Inventory ({products.length})
+        </button>
+        <button
+          onClick={() => setActiveTab('banners')}
+          className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-full transition-colors ${
+            activeTab === 'banners' ? 'bg-[#1c1c1c] text-[#fcfbf8]' : 'bg-[#5f5f5d]/10 text-[#5f5f5d] hover:text-[#1c1c1c]'
+          }`}
+        >
+          Banners ({banners.length})
         </button>
         <button
           onClick={() => setActiveTab('create_product')}
