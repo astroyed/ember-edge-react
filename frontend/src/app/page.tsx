@@ -191,27 +191,8 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Men Card */}
-          <Link href="/collections/men" className="group relative h-96 overflow-hidden bg-[#5f5f5d]/5 border border-[#eceae4]">
-            <img
-              src="https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?q=80&w=800"
-              alt="Men's Collection"
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1c1c1c]/90 via-[#1c1c1c]/30 to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6">
-              <span className="text-[10px] font-bold text-[#e58a2b] uppercase tracking-widest block">MENSWEAR</span>
-              <h3 className="text-xl font-black uppercase text-[#fcfbf8] font-serif">Men's Collection</h3>
-              <p className="text-xs text-[#5f5f5d] mt-1 line-clamp-1">Oversized tees, utility cargos & outerwear.</p>
-              <span className="inline-flex items-center space-x-1 text-xs font-bold uppercase text-[#e58a2b] mt-3 group-hover:translate-x-1 transition-transform">
-                <span>Shop Men</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </span>
-            </div>
-          </Link>
-
           {/* Women Card */}
-          <Link href="/collections/women" className="group relative h-96 overflow-hidden bg-[#5f5f5d]/5 border border-[#eceae4]">
+          <Link href="/collections/women" className="group relative h-96 overflow-hidden bg-[#5f5f5d]/5 border border-[#eceae4] md:col-start-2">
             <img
               src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800"
               alt="Women's Collection"
@@ -224,25 +205,6 @@ export default function HomePage() {
               <p className="text-xs text-[#5f5f5d] mt-1 line-clamp-1">Silk evening gowns, knitwear & structured blazers.</p>
               <span className="inline-flex items-center space-x-1 text-xs font-bold uppercase text-[#e58a2b] mt-3 group-hover:translate-x-1 transition-transform">
                 <span>Shop Women</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </span>
-            </div>
-          </Link>
-
-          {/* Kids Card */}
-          <Link href="/collections/kids" className="group relative h-96 overflow-hidden bg-[#5f5f5d]/5 border border-[#eceae4]">
-            <img
-              src="https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?q=80&w=800"
-              alt="Kids Collection"
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1c1c1c]/90 via-[#1c1c1c]/30 to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6">
-              <span className="text-[10px] font-bold text-[#e58a2b] uppercase tracking-widest block">JUNIOR</span>
-              <h3 className="text-xl font-black uppercase text-[#fcfbf8] font-serif">Kids Collection</h3>
-              <p className="text-xs text-[#5f5f5d] mt-1 line-clamp-1">Organic fleece hoodies & everyday comfortable wear.</p>
-              <span className="inline-flex items-center space-x-1 text-xs font-bold uppercase text-[#e58a2b] mt-3 group-hover:translate-x-1 transition-transform">
-                <span>Shop Kids</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </div>
