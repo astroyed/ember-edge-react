@@ -78,15 +78,16 @@ export default function AdminDashboardPage() {
   }
 
   return (
-    <main className="mx-auto max-w-7xl space-y-8 px-4 py-10 sm:px-6 lg:px-8">
-      <header className="flex items-center justify-between border-b border-[#eceae4] pb-6">
-        <div>
-          <span className="text-xs font-bold uppercase tracking-widest text-[#e58a2b]">ADMIN CONTROL CENTER</span>
-          <h1 className="font-serif text-3xl font-black uppercase text-[#1c1c1c]">Dashboard</h1>
+    <main className="mx-auto min-h-[70vh] max-w-[1200px] space-y-10 px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+      <header className="flex flex-col justify-between gap-6 border-b border-[#eceae4] pb-8 sm:flex-row sm:items-end">
+        <div className="max-w-2xl">
+          <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#5f5f5d]">Ember Edge · Administration</span>
+          <h1 className="mt-3 font-serif text-4xl font-semibold leading-none tracking-[-1.2px] text-[#1c1c1c] sm:text-5xl">Dashboard</h1>
+          <p className="mt-3 text-base leading-relaxed text-[#5f5f5d]">A clear view of your store, orders, and inventory.</p>
         </div>
-        <div className="flex items-center space-x-2">
-          <span className="rounded-full border border-[#e58a2b]/30 bg-[#e58a2b]/10 px-3 py-1 text-xs font-bold uppercase text-[#e58a2b]">
-            ROLE: {user.role.toUpperCase()}
+        <div className="flex items-center gap-3">
+          <span className="rounded-full border border-[#eceae4] bg-[#1c1c1c]/[0.03] px-4 py-2 text-xs font-medium uppercase tracking-wider text-[#1c1c1c]">
+            {user.role}
           </span>
           <button onClick={() => void loadAdminData()} className="rounded-md border border-[#eceae4] bg-[#f7f4ed] p-2 text-[#1c1c1c] transition-colors hover:bg-[#5f5f5d]/10" title="Refresh Data" aria-label="Refresh dashboard data">
             <RefreshCw className="h-4 w-4" />
@@ -94,13 +95,13 @@ export default function AdminDashboardPage() {
         </div>
       </header>
 
-      <nav aria-label="Dashboard sections" className="flex flex-wrap gap-2 border-b border-[#eceae4] pb-4">
+      <nav aria-label="Dashboard sections" className="flex flex-wrap gap-2">
         {TABS.map((tab) => {
           const count = tab.id === 'orders' ? orders.length : tab.id === 'products' ? products.length : tab.id === 'banners' ? banners.length : null;
           const selected = activeTab === tab.id;
           return (
             <button key={tab.id} onClick={() => setActiveTab(tab.id)} aria-current={selected ? 'page' : undefined}
-              className={`flex items-center gap-1 rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors ${selected ? 'bg-[#1c1c1c] text-[#fcfbf8]' : 'bg-[#5f5f5d]/10 text-[#5f5f5d] hover:text-[#1c1c1c]'}`}>
+              className={`flex min-h-10 items-center gap-2 rounded-full border px-4 py-2 text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-[#1c1c1c]/20 ${selected ? 'border-[#1c1c1c] bg-[#1c1c1c] text-[#fcfbf8] shadow-[rgba(255,255,255,0.2)_0px_0.5px_0px_0px_inset,rgba(0,0,0,0.2)_0px_0px_0px_0.5px_inset]' : 'border-[#eceae4] bg-[#f7f4ed] text-[#5f5f5d] hover:border-[#1c1c1c]/40 hover:text-[#1c1c1c]'}`}>
               {tab.id === 'create_product' && <Plus className="h-3.5 w-3.5" />}
               {tab.label}{count !== null && ` (${count})`}
             </button>

@@ -98,12 +98,12 @@ export default function BannersTab({ banners, loading, loadError, onRefresh }: B
 
   return (
     <section className="space-y-6 animate-fadeIn">
-      <header className="flex flex-wrap items-center justify-between gap-4">
+      <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="text-xs font-bold uppercase tracking-wider text-[#1c1c1c]">Homepage Banners</h2>
-          <p className="mt-1 text-xs text-[#5f5f5d]">Manage the banners displayed in the storefront.</p>
+          <h2 className="font-serif text-2xl font-semibold tracking-[-0.5px] text-[#1c1c1c]">Homepage banners</h2>
+          <p className="mt-2 text-sm text-[#5f5f5d]">Manage the banners displayed in the storefront.</p>
         </div>
-        <button type="button" onClick={createBanner} className="inline-flex items-center gap-2 rounded-md bg-[#1c1c1c] px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-[#fcfbf8] transition-colors hover:bg-[#1c1c1c]/80">
+        <button type="button" onClick={createBanner} className="inline-flex items-center gap-2 rounded-md bg-[#1c1c1c] px-4 py-2.5 text-sm text-[#fcfbf8] shadow-[rgba(255,255,255,0.2)_0px_0.5px_0px_0px_inset,rgba(0,0,0,0.2)_0px_0px_0px_0.5px_inset] transition hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[#1c1c1c]/30">
           <Plus className="h-4 w-4" /> Add Banner
         </button>
       </header>
@@ -112,7 +112,7 @@ export default function BannersTab({ banners, loading, loadError, onRefresh }: B
 
       {formOpen && (
         <div className="rounded-xl border border-[#eceae4] bg-[#f7f4ed] p-6 sm:p-8">
-          <h3 className="mb-5 border-b border-[#eceae4] pb-3 text-xs font-bold uppercase tracking-wider text-[#1c1c1c]">
+          <h3 className="mb-5 border-b border-[#eceae4] pb-3 font-serif text-xl font-semibold text-[#1c1c1c]">
             {editingBanner ? 'Edit Banner' : 'Create Banner'}
           </h3>
           {message && <p role="status" className={`mb-4 rounded-lg border p-3 text-xs ${message.includes('success') ? 'border-[#e58a2b]/30 bg-[#e58a2b]/10 text-[#e58a2b]' : 'border-red-500/30 bg-red-500/10 text-red-600'}`}>{message}</p>}
@@ -141,18 +141,18 @@ export default function BannersTab({ banners, loading, loadError, onRefresh }: B
           <p className="mt-1 text-xs text-[#5f5f5d]">Add a banner to feature it on your storefront.</p>
         </div>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {banners.map((banner) => (
-            <article key={banner.id} className="overflow-hidden rounded-xl border border-[#eceae4] bg-[#f7f4ed]">
-              <div className="h-40 bg-[#eceae4]"><img src={resolveBannerImageSrc(banner.image_path)} alt={banner.title ? `${banner.title} banner` : 'Banner'} className="h-full w-full object-cover object-center" onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = FALLBACK_BANNER_IMAGE; }} /></div>
+            <article key={banner.id} className="overflow-hidden rounded-xl border border-[#eceae4] bg-[#f7f4ed] transition-colors hover:border-[#1c1c1c]/25">
+              <div className="m-3 mb-0 h-40 overflow-hidden rounded-lg border border-[#eceae4] bg-[#1c1c1c]/[0.03]"><img src={resolveBannerImageSrc(banner.image_path)} alt={banner.title ? `${banner.title} banner` : 'Banner'} className="h-full w-full object-cover object-center" onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = FALLBACK_BANNER_IMAGE; }} /></div>
               <div className="space-y-3 p-5">
                 <div className="flex items-start justify-between gap-3">
-                  <div><h3 className="font-bold text-[#1c1c1c]">{banner.title}</h3>{banner.subtitle && <p className="mt-1 text-xs text-[#5f5f5d]">{banner.subtitle}</p>}</div>
-                  <span className={`inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-1 text-[10px] font-bold uppercase ${banner.is_active ? 'border-green-600/20 bg-green-600/10 text-green-700' : 'border-[#5f5f5d]/20 bg-[#5f5f5d]/10 text-[#5f5f5d]'}`}>
+                  <div><h3 className="text-base text-[#1c1c1c]">{banner.title}</h3>{banner.subtitle && <p className="mt-1 text-sm leading-relaxed text-[#5f5f5d]">{banner.subtitle}</p>}</div>
+                  <span className={`inline-flex shrink-0 items-center gap-1 rounded-full border px-2.5 py-1 text-[10px] font-medium uppercase ${banner.is_active ? 'border-[#1c1c1c]/20 bg-[#1c1c1c]/[0.04] text-[#1c1c1c]' : 'border-[#eceae4] bg-transparent text-[#5f5f5d]'}`}>
                     {banner.is_active && <CheckCircle className="h-3 w-3" />}{banner.is_active ? 'Active' : 'Inactive'}
                   </span>
                 </div>
-                <p className="text-[11px] text-[#5f5f5d]">Position: {banner.position} · Button: {banner.button_text || 'Shop Now'}</p>
+                <p className="text-xs text-[#5f5f5d]">Position: {banner.position} · Button: {banner.button_text || 'Shop Now'}</p>
                 <div className="flex gap-2 border-t border-[#eceae4] pt-3">
                   <button type="button" onClick={() => editBanner(banner)} className="inline-flex items-center gap-1.5 rounded-md border border-[#eceae4] px-3 py-2 text-[10px] font-bold uppercase text-[#1c1c1c] hover:bg-[#5f5f5d]/10"><Edit className="h-3.5 w-3.5" /> Edit</button>
                   <button type="button" onClick={() => deleteBanner(banner.id)} className="inline-flex items-center gap-1.5 rounded-md border border-red-500/20 px-3 py-2 text-[10px] font-bold uppercase text-red-600 hover:bg-red-500/10"><Trash2 className="h-3.5 w-3.5" /> Delete</button>

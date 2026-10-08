@@ -37,35 +37,37 @@ export default function OrdersTab({ orders, onRefresh }: OrdersTabProps) {
 
   return (
     <>
-      <section className="space-y-6 rounded-xl border border-[#eceae4] bg-[#f7f4ed] p-6 animate-fadeIn">
-        <h2 className="border-b border-[#eceae4] pb-3 text-xs font-bold uppercase tracking-wider text-[#1c1c1c]">
-          Customer Orders &amp; Status Fulfillment
-        </h2>
+      <section className="space-y-6 animate-fadeIn">
+        <header>
+          <h2 className="font-serif text-2xl font-semibold tracking-[-0.5px] text-[#1c1c1c]">Customer orders</h2>
+          <p className="mt-2 text-sm text-[#5f5f5d]">Review payments and keep fulfillment status up to date.</p>
+        </header>
+        <div className="overflow-hidden rounded-xl border border-[#eceae4] bg-[#f7f4ed]">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs text-[#1c1c1c]">
             <thead>
-              <tr className="border-b border-[#eceae4] bg-[#eceae4]/60 font-mono uppercase">
+              <tr className="border-b border-[#eceae4] bg-[#1c1c1c]/[0.03] font-sans text-[11px] font-semibold uppercase tracking-wider text-[#5f5f5d]">
                 <th className="p-3">Order Ref</th><th className="p-3">Customer</th><th className="p-3">Status</th>
                 <th className="p-3">Payment</th><th className="p-3">Total</th><th className="p-3">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#eceae4] font-mono">
+            <tbody className="divide-y divide-[#eceae4] text-sm">
               {orders.map((order) => (
-                <tr key={order.id} className="hover:bg-[#5f5f5d]/5">
-                  <td className="p-3 font-bold text-[#e58a2b]">{order.order_number}</td>
+                <tr key={order.id} className="transition-colors hover:bg-[#1c1c1c]/[0.025]">
+                  <td className="whitespace-nowrap p-4 font-medium text-[#1c1c1c]">{order.order_number}</td>
                   <td className="p-3 font-sans">
                     {order.user?.name || order.shipping_address?.first_name || 'Guest'}
                     <span className="block text-[10px] text-[#5f5f5d]">{order.shipping_address?.email || order.guest_email}</span>
                   </td>
-                  <td className="p-3">
-                    <span className="rounded-full border border-[#e58a2b]/30 bg-[#e58a2b]/10 px-2.5 py-0.5 text-[10px] font-bold uppercase text-[#e58a2b]">
+                  <td className="p-4">
+                    <span className="rounded-full border border-[#eceae4] bg-[#1c1c1c]/[0.04] px-2.5 py-1 text-[10px] font-medium uppercase text-[#1c1c1c]">
                       {order.status}
                     </span>
                   </td>
-                  <td className="p-3 font-sans uppercase text-[#5f5f5d]">{order.payment_method} ({order.payment_status})</td>
-                  <td className="p-3 font-bold text-[#1c1c1c]">Rs. {numberFormat(order.total_amount)}</td>
-                  <td className="p-3">
-                    <button onClick={() => openStatusEditor(order)} className="rounded-md bg-[#1c1c1c] px-3 py-1 font-sans text-[10px] font-bold uppercase text-[#fcfbf8] transition-colors hover:bg-[#1c1c1c]/80">
+                  <td className="whitespace-nowrap p-4 text-[#5f5f5d]">{order.payment_method} ({order.payment_status})</td>
+                  <td className="whitespace-nowrap p-4 font-medium text-[#1c1c1c]">Rs. {numberFormat(order.total_amount)}</td>
+                  <td className="whitespace-nowrap p-4">
+                    <button onClick={() => openStatusEditor(order)} className="rounded-md bg-[#1c1c1c] px-3 py-2 text-xs font-medium text-[#fcfbf8] shadow-[rgba(255,255,255,0.2)_0px_0.5px_0px_0px_inset,rgba(0,0,0,0.2)_0px_0px_0px_0.5px_inset] transition hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-[#1c1c1c]/30">
                       Change Status
                     </button>
                   </td>
@@ -74,12 +76,17 @@ export default function OrdersTab({ orders, onRefresh }: OrdersTabProps) {
             </tbody>
           </table>
         </div>
+        {orders.length === 0 && <p className="border-t border-[#eceae4] px-6 py-12 text-center text-sm text-[#5f5f5d]">No orders to display yet.</p>}
+        </div>
       </section>
 
       {editingOrder && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1c1c1c]/40 p-4 backdrop-blur-sm">
-          <section role="dialog" aria-modal="true" aria-labelledby="order-status-title" className="w-full max-w-md space-y-4 rounded-xl border border-[#eceae4] bg-[#f7f4ed] p-6 shadow-lg">
-            <h2 id="order-status-title" className="text-xs font-bold uppercase text-[#1c1c1c]">Update Order Status</h2>
+          <section role="dialog" aria-modal="true" aria-labelledby="order-status-title" className="w-full max-w-md space-y-5 rounded-xl border border-[#eceae4] bg-[#f7f4ed] p-6 shadow-[rgba(0,0,0,0.1)_0px_4px_12px]">
+            <div>
+              <h2 id="order-status-title" className="font-serif text-2xl font-semibold text-[#1c1c1c]">Update order</h2>
+              <p className="mt-1 text-sm text-[#5f5f5d]">Change fulfillment status and tracking details.</p>
+            </div>
             <label className="block text-xs text-[#5f5f5d]">
               Status
               <select value={status} onChange={(event) => setStatus(event.target.value)} className="mt-1 w-full rounded-md border border-[#eceae4] bg-[#f7f4ed]/50 p-3 text-[#1c1c1c]">
