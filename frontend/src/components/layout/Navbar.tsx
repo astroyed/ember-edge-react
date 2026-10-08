@@ -127,7 +127,8 @@ export const Navbar = () => {
                   </Link>
 
                   {/* Account Popup */}
-                  <div className="absolute right-0 mt-2 w-48 bg-[#f7f4ed] border border-[#eceae4] rounded-lg shadow-[rgba(0,0,0,0.1)_0px_4px_12px] opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-200 py-2 z-50">
+                  <div className="invisible pointer-events-none absolute right-0 top-full z-50 w-48 pt-2 opacity-0 transition-opacity duration-200 group-hover:visible group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto group-focus-within:opacity-100">
+                    <div className="rounded-lg border border-[#eceae4] bg-[#f7f4ed] py-2 shadow-[rgba(0,0,0,0.1)_0px_4px_12px]">
                     <div className="px-4 py-2 border-b border-[#eceae4] text-xs text-[#5f5f5d]">
                       Logged in as <span className="text-[#1c1c1c] font-medium block truncate">{user.email}</span>
                       {user.role !== 'customer' && (
@@ -159,6 +160,7 @@ export const Navbar = () => {
                     >
                       Sign Out
                     </button>
+                    </div>
                   </div>
                 </div>
               ) : (
