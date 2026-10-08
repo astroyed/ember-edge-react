@@ -3,9 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Package, ShoppingBag, Users, DollarSign, AlertTriangle, Plus, RefreshCw, CheckCircle, ShieldAlert, Image, Trash2, Edit, Eye } from 'lucide-react';
+import { Plus, RefreshCw, CheckCircle, Image as ImageIcon, Trash2, Edit } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { api } from '@/lib/api';
+import { FALLBACK_BANNER_IMAGE, resolveBannerImageSrc } from '@/lib/banner-image';
 
 export default function AdminDashboardPage() {
   const router = useRouter();
@@ -18,6 +19,7 @@ export default function AdminDashboardPage() {
   const [banners, setBanners] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState<'stats' | 'orders' | 'products' | 'create_product' | 'banners'>('stats');
   const [loading, setLoading] = useState(true);
+  const [bannerLoadError, setBannerLoadError] = useState('');
 
   // New Product Form State
   const [newProdName, setNewProdName] = useState('');
@@ -45,11 +47,12 @@ export default function AdminDashboardPage() {
   const [bannerPosition, setBannerPosition] = useState(0);
   const [bannerActive, setBannerActive] = useState(true);
   const [bannerMsg, setBannerMsg] = useState('');
+  const [showBannerForm, setShowBannerForm] = useState(false);
 
   const loadAdminData = async () => {
     setLoading(true);
     try {
-      const [sRes, oRes, pRes, cRes, bRes] = await Promise.all([
+      const [sRes, oRes, pRes, cRes, bRes] = await Promise.allSettled([
         api.getAdminStats(),
         api.getAdminOrders(),
         api.getAdminProducts(),
@@ -57,11 +60,19 @@ export default function AdminDashboardPage() {
         api.getAdminBanners(),
       ]);
 
-      if (sRes.success) setStats(sRes.data);
-      if (oRes.success) setOrders(oRes.data?.data || oRes.data || []);
-      if (pRes.success) setProducts(pRes.data?.data || pRes.data || []);
-      if (cRes.success) setCategories(cRes.data || []);
-      if (bRes.success) setBanners(bRes.data || []);
+      if (sRes.status === 'fulfilled' && sRes.value.success) setStats(sRes.value.data);
+      if (oRes.status === 'fulfilled' && oRes.value.success) setOrders(oRes.value.data?.data || oRes.value.data || []);
+      if (pRes.status === 'fulfilled' && pRes.value.success) setProducts(pRes.value.data?.data || pRes.value.data || []);
+      if (cRes.status === 'fulfilled' && cRes.value.success) setCategories(cRes.value.data || []);
+      if (bRes.status === 'fulfilled' && bRes.value.success) {
+        setBanners(Array.isArray(bRes.value.data) ? bRes.value.data : []);
+        setBannerLoadError('');
+      } else {
+        setBanners([]);
+        setBannerLoadError(bRes.status === 'rejected' && bRes.reason instanceof Error
+          ? bRes.reason.message
+          : 'Unable to load banners. Please try refreshing.');
+      }
     } catch (err) {
       console.error('Failed to fetch admin stats', err);
     } finally {
@@ -146,6 +157,7 @@ export default function AdminDashboardPage() {
       }
       if (res.success) {
         setBannerMsg(editingBanner ? 'Banner updated successfully!' : 'Banner created successfully!');
+        setShowBannerForm(false);
         setEditingBanner(null);
         setBannerTitle('');
         setBannerSubtitle('');
@@ -162,6 +174,7 @@ export default function AdminDashboardPage() {
   };
 
   const handleEditBanner = (banner: any) => {
+    setShowBannerForm(true);
     setEditingBanner(banner);
     setBannerTitle(banner.title);
     setBannerSubtitle(banner.subtitle || '');
@@ -186,6 +199,7 @@ export default function AdminDashboardPage() {
   };
 
   const handleNewBanner = () => {
+    setShowBannerForm(true);
     setEditingBanner(null);
     setBannerTitle('');
     setBannerSubtitle('');
@@ -211,7 +225,7 @@ export default function AdminDashboardPage() {
       <div className="border-b border-[#eceae4] pb-6 flex items-center justify-between">
         <div>
           <span className="text-xs font-bold uppercase tracking-widest text-[#e58a2b]">ADMIN CONTROL CENTER</span>
-          <h1 className="text-3xl font-black uppercase text-[#1c1c1c] font-serif">Ember Edge Dashboard</h1>
+          <h1 className="text-3xl font-black uppercase text-[#1c1c1c] font-serif">Dashboard</h1>
         </div>
         <div className="flex items-center space-x-2">
           <span className="bg-[#e58a2b]/10 text-[#e58a2b] text-xs font-bold px-3 py-1 uppercase rounded-full border border-[#e58a2b]/30">
@@ -390,7 +404,133 @@ export default function AdminDashboardPage() {
         </div>
       )}
 
-      {/* Tab 4: Create Product */}
+      {/* Tab 4: Banners */}
+      {activeTab === 'banners' && (
+        <div className="space-y-6 animate-fadeIn">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h2 className="text-xs font-bold uppercase tracking-wider text-[#1c1c1c]">Homepage Banners</h2>
+              <p className="mt-1 text-xs text-[#5f5f5d]">Manage the banners displayed in the storefront.</p>
+            </div>
+            <button
+              type="button"
+              onClick={handleNewBanner}
+              className="inline-flex items-center gap-2 rounded-md bg-[#1c1c1c] px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-[#fcfbf8] transition-colors hover:bg-[#1c1c1c]/80"
+            >
+              <Plus className="h-4 w-4" />
+              Add Banner
+            </button>
+          </div>
+
+          {bannerLoadError && (
+            <div role="alert" className="rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-xs text-red-600">
+              {bannerLoadError}
+            </div>
+          )}
+
+          {showBannerForm && (
+            <div className="rounded-xl border border-[#eceae4] bg-[#f7f4ed] p-6 sm:p-8">
+              <h3 className="mb-5 border-b border-[#eceae4] pb-3 text-xs font-bold uppercase tracking-wider text-[#1c1c1c]">
+                {editingBanner ? 'Edit Banner' : 'Create Banner'}
+              </h3>
+              {bannerMsg && (
+                <div role="status" className={`mb-4 rounded-lg border p-3 text-xs ${bannerMsg.includes('success') ? 'border-[#e58a2b]/30 bg-[#e58a2b]/10 text-[#e58a2b]' : 'border-red-500/30 bg-red-500/10 text-red-600'}`}>
+                  {bannerMsg}
+                </div>
+              )}
+              <form onSubmit={handleBannerSubmit} className="grid gap-4 text-xs sm:grid-cols-2">
+                <div>
+                  <label htmlFor="banner-title" className="mb-1 block text-[#5f5f5d]">Title *</label>
+                  <input id="banner-title" required value={bannerTitle} onChange={(e) => setBannerTitle(e.target.value)} className="w-full rounded-md border border-[#eceae4] bg-white/50 p-3 text-[#1c1c1c] focus:border-[#e58a2b] focus:outline-none" />
+                </div>
+                <div>
+                  <label htmlFor="banner-subtitle" className="mb-1 block text-[#5f5f5d]">Subtitle</label>
+                  <input id="banner-subtitle" value={bannerSubtitle} onChange={(e) => setBannerSubtitle(e.target.value)} className="w-full rounded-md border border-[#eceae4] bg-white/50 p-3 text-[#1c1c1c] focus:border-[#e58a2b] focus:outline-none" />
+                </div>
+                <div className="sm:col-span-2">
+                  <label htmlFor="banner-image" className="mb-1 block text-[#5f5f5d]">Image URL *</label>
+                  <input id="banner-image" type="url" required value={bannerImage} onChange={(e) => setBannerImage(e.target.value)} className="w-full rounded-md border border-[#eceae4] bg-white/50 p-3 text-[#1c1c1c] focus:border-[#e58a2b] focus:outline-none" />
+                </div>
+                <div>
+                  <label htmlFor="banner-button-text" className="mb-1 block text-[#5f5f5d]">Button Text</label>
+                  <input id="banner-button-text" value={bannerButtonText} onChange={(e) => setBannerButtonText(e.target.value)} className="w-full rounded-md border border-[#eceae4] bg-white/50 p-3 text-[#1c1c1c] focus:border-[#e58a2b] focus:outline-none" />
+                </div>
+                <div>
+                  <label htmlFor="banner-button-url" className="mb-1 block text-[#5f5f5d]">Button URL</label>
+                  <input id="banner-button-url" value={bannerButtonUrl} onChange={(e) => setBannerButtonUrl(e.target.value)} className="w-full rounded-md border border-[#eceae4] bg-white/50 p-3 text-[#1c1c1c] focus:border-[#e58a2b] focus:outline-none" />
+                </div>
+                <div>
+                  <label htmlFor="banner-position" className="mb-1 block text-[#5f5f5d]">Display Position</label>
+                  <input id="banner-position" type="number" min="0" value={bannerPosition} onChange={(e) => setBannerPosition(Number(e.target.value))} className="w-full rounded-md border border-[#eceae4] bg-white/50 p-3 text-[#1c1c1c] focus:border-[#e58a2b] focus:outline-none" />
+                </div>
+                <label className="flex items-center gap-2 self-end pb-3 text-[#1c1c1c]">
+                  <input type="checkbox" checked={bannerActive} onChange={(e) => setBannerActive(e.target.checked)} className="accent-[#e58a2b]" />
+                  Active on storefront
+                </label>
+                <div className="flex gap-2 sm:col-span-2">
+                  <button type="submit" className="rounded-md bg-[#1c1c1c] px-5 py-3 text-xs font-bold uppercase tracking-wider text-[#fcfbf8] hover:bg-[#1c1c1c]/80">
+                    {editingBanner ? 'Save Changes' : 'Create Banner'}
+                  </button>
+                  <button type="button" onClick={() => { setShowBannerForm(false); setBannerMsg(''); }} className="rounded-md border border-[#eceae4] px-5 py-3 text-xs font-bold uppercase tracking-wider text-[#1c1c1c] hover:bg-[#5f5f5d]/10">
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
+
+          {loading ? (
+            <div className="rounded-xl border border-[#eceae4] bg-[#f7f4ed] p-10 text-center text-sm text-[#5f5f5d]">Loading banners...</div>
+          ) : banners.length === 0 ? (
+            <div className="rounded-xl border border-[#eceae4] bg-[#f7f4ed] px-6 py-12 text-center">
+              <ImageIcon aria-hidden="true" className="mx-auto mb-3 h-8 w-8 text-[#5f5f5d]" />
+              <p className="text-sm font-bold text-[#1c1c1c]">No banners found</p>
+              <p className="mt-1 text-xs text-[#5f5f5d]">Add a banner to feature it on your storefront.</p>
+            </div>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {banners.map((banner) => (
+                <article key={banner.id} className="overflow-hidden rounded-xl border border-[#eceae4] bg-[#f7f4ed]">
+                  <div className="h-40 bg-[#eceae4]">
+                    <img
+                      src={resolveBannerImageSrc(banner.image_path)}
+                      alt={banner.title ? `${banner.title} banner` : 'Banner'}
+                      className="h-full w-full object-cover object-center"
+                      onError={(event) => {
+                        event.currentTarget.onerror = null;
+                        event.currentTarget.src = FALLBACK_BANNER_IMAGE;
+                      }}
+                    />
+                  </div>
+                  <div className="space-y-3 p-5">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <h3 className="font-bold text-[#1c1c1c]">{banner.title}</h3>
+                        {banner.subtitle && <p className="mt-1 text-xs text-[#5f5f5d]">{banner.subtitle}</p>}
+                      </div>
+                      <span className={`inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-1 text-[10px] font-bold uppercase ${banner.is_active ? 'border-green-600/20 bg-green-600/10 text-green-700' : 'border-[#5f5f5d]/20 bg-[#5f5f5d]/10 text-[#5f5f5d]'}`}>
+                        {banner.is_active && <CheckCircle className="h-3 w-3" />}
+                        {banner.is_active ? 'Active' : 'Inactive'}
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-[#5f5f5d]">Position: {banner.position} · Button: {banner.button_text || 'Shop Now'}</p>
+                    <div className="flex gap-2 border-t border-[#eceae4] pt-3">
+                      <button type="button" onClick={() => handleEditBanner(banner)} className="inline-flex items-center gap-1.5 rounded-md border border-[#eceae4] px-3 py-2 text-[10px] font-bold uppercase text-[#1c1c1c] hover:bg-[#5f5f5d]/10">
+                        <Edit className="h-3.5 w-3.5" /> Edit
+                      </button>
+                      <button type="button" onClick={() => handleDeleteBanner(banner.id)} className="inline-flex items-center gap-1.5 rounded-md border border-red-500/20 px-3 py-2 text-[10px] font-bold uppercase text-red-600 hover:bg-red-500/10">
+                        <Trash2 className="h-3.5 w-3.5" /> Delete
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Tab 5: Create Product */}
       {activeTab === 'create_product' && (
         <div className="bg-[#f7f4ed] border border-[#eceae4] rounded-xl p-6 sm:p-8 space-y-6 max-w-2xl animate-fadeIn">
           <h2 className="text-xs font-bold uppercase tracking-wider text-[#1c1c1c] border-b border-[#eceae4] pb-3">

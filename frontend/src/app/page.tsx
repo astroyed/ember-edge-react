@@ -6,6 +6,7 @@ import { ArrowRight, ShieldCheck, Truck, RefreshCw, Award, Star } from 'lucide-r
 import { ProductCard } from '@/components/product/ProductCard';
 import { Banner, Product } from '@/types';
 import { api } from '@/lib/api';
+import { FALLBACK_BANNER_IMAGE, resolveBannerImageSrc } from '@/lib/banner-image';
 
 export default function HomePage() {
   const [banners, setBanners] = useState<Banner[]>([]);
@@ -71,9 +72,13 @@ export default function HomePage() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
-            src={'/images/' + activeBanner.image_path}
+            src={resolveBannerImageSrc(activeBanner.image_path)}
             alt={activeBanner.title}
             className="w-full h-full object-cover object-center transition-all duration-1000"
+            onError={(event) => {
+              event.currentTarget.onerror = null;
+              event.currentTarget.src = FALLBACK_BANNER_IMAGE;
+            }}
           />
         </div>
 
