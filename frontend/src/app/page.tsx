@@ -175,50 +175,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3. FEATURED COLLECTIONS GRID */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <div className="flex items-end justify-between border-b border-[#eceae4] pb-4">
-          <div>
-            <span className="text-xs font-bold uppercase tracking-widest text-[#e58a2b]">CURATED EDIT</span>
-            <h2 className="text-2xl sm:text-3xl font-black uppercase text-[#1c1c1c] font-serif mt-1">
-              Explore Collections
-            </h2>
-          </div>
-          <Link href="/shop" className="text-xs font-bold uppercase text-[#e58a2b] hover:text-[#d97706] flex items-center space-x-1">
-            <span>View All</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Women Card */}
-          <Link href="/collections/women" className="group relative h-96 overflow-hidden bg-[#5f5f5d]/5 border border-[#eceae4] md:col-start-2">
-            <img
-              src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800"
-              alt="Women's Collection"
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1c1c1c]/90 via-[#1c1c1c]/30 to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6">
-              <span className="text-[10px] font-bold text-[#e58a2b] uppercase tracking-widest block">COUTURE</span>
-              <h3 className="text-xl font-black uppercase text-[#fcfbf8] font-serif">Women's Collection</h3>
-              <p className="text-xs text-[#5f5f5d] mt-1 line-clamp-1">Silk evening gowns, knitwear & structured blazers.</p>
-              <span className="inline-flex items-center space-x-1 text-xs font-bold uppercase text-[#e58a2b] mt-3 group-hover:translate-x-1 transition-transform">
-                <span>Shop Women</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </span>
-            </div>
-          </Link>
-        </div>
-      </section>
-
-      {/* 4. FEATURED PRODUCTS */}
+      {/* 3. FEATURED PRODUCTS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="flex items-end justify-between border-b border-[#eceae4] pb-4">
           <div>
             <span className="text-xs font-bold uppercase tracking-widest text-[#e58a2b]">MUST-HAVE DROPS</span>
             <h2 className="text-2xl sm:text-3xl font-black uppercase text-[#1c1c1c] font-serif mt-1">
-              Featured Products
+              Unstitched
             </h2>
           </div>
           <Link href="/shop" className="text-xs font-bold uppercase text-[#e58a2b] hover:text-[#d97706] flex items-center space-x-1">
@@ -235,14 +198,24 @@ export default function HomePage() {
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {featuredProducts.slice(0, 8).map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+            {featuredProducts
+              .filter((product) => product.category?.slug !== 'women' && product.size_guide_type !== 'women')
+              .slice(0, 8)
+              .map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            <div className="group relative aspect-[3/4] overflow-hidden bg-[#5f5f5d]/5 border border-[#eceae4]">
+              <img
+                src="/images/unstitched3.png"
+                alt="Unstitched collection"
+                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
           </div>
         )}
       </section>
 
-      {/* 5. EDITORIAL LOOKBOOK SECTION */}
+      {/* 4. EDITORIAL LOOKBOOK SECTION */}
       <section className="relative py-20 bg-[#f7f4ed] border-y border-[#eceae4]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
@@ -273,7 +246,7 @@ export default function HomePage() {
 
           <div className="relative h-96 sm:h-[450px] border border-[#eceae4] overflow-hidden group">
             <img
-              src="https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=1000"
+              src="/images/card.png"
               alt="Ember Edge Atelier Crafting"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
@@ -286,7 +259,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6. NEW ARRIVALS */}
+      {/* 5. NEW ARRIVALS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="flex items-end justify-between border-b border-[#eceae4] pb-4">
           <div>
@@ -301,14 +274,22 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {newArrivals.slice(0, 8).map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 animate-pulse">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="h-80 bg-[#5f5f5d]/10 border border-[#eceae4]" />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {newArrivals.slice(0, 8).map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
       </section>
 
-      {/* 7. CUSTOMER REVIEWS & TESTIMONIALS */}
+      {/* 6. CUSTOMER REVIEWS & TESTIMONIALS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 bg-[#f7f4ed] border border-[#eceae4]">
         <div className="text-center max-w-2xl mx-auto space-y-2 mb-10">
           <span className="text-xs font-bold uppercase tracking-widest text-[#e58a2b]">CLIENT TESTIMONIALS</span>
