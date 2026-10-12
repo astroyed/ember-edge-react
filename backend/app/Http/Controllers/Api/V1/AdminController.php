@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductVariant;
 use App\Models\Review;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -18,23 +16,34 @@ class AdminController extends Controller
 {
     public function dashboardStats()
     {
+        $orderStats = Order::query()
+            ->selectRaw(
+                'COUNT(*) as total_orders, COALESCE(SUM(CASE WHEN payment_status = ? THEN total_amount ELSE 0 END), 0) as total_revenue, SUM(CASE WHEN status = ? THEN 1 ELSE 0 END) as pending_orders',
+                ['completed', 'pending']
+            )
+            ->first();
+
         return response()->json([
             'success' => true,
             'data' => [
-                'total_revenue' => Order::where('payment_status', 'completed')->sum('total_amount'),
-                'total_orders' => Order::count(),
-                'pending_orders' => Order::where('status', 'pending')->count(),
+                'total_revenue' => $orderStats->total_revenue,
+                'total_orders' => $orderStats->total_orders,
+                'pending_orders' => $orderStats->pending_orders,
                 'total_products' => Product::count(),
-                'low_stock_variants' => ProductVariant::where('stock_quantity', '<=', 5)->count(),
-                'total_customers' => User::where('role', 'customer')->count(),
-                'recent_orders' => Order::with('user')->orderBy('created_at', 'desc')->limit(5)->get(),
             ]
         ]);
     }
 
     public function products(Request $request)
     {
-        $products = Product::with(['category', 'images', 'variants'])->orderBy('created_at', 'desc')->paginate(15);
+        $products = Product::query()
+            ->select(['id', 'name', 'category_id', 'price', 'created_at'])
+            ->with([
+                'category:id,name',
+                'variants:id,product_id,color,size,stock_quantity',
+            ])
+            ->orderByDesc('created_at')
+            ->simplePaginate(15);
         return response()->json(['success' => true, 'data' => $products]);
     }
 
@@ -106,7 +115,14 @@ class AdminController extends Controller
 
     public function orders(Request $request)
     {
-        $orders = Order::with(['user', 'items', 'shipment'])->orderBy('created_at', 'desc')->paginate(15);
+        $orders = Order::query()
+            ->select([
+                'id', 'order_number', 'user_id', 'shipping_address', 'guest_email', 'status',
+                'payment_method', 'payment_status', 'total_amount', 'tracking_number', 'created_at',
+            ])
+            ->with('user:id,name')
+            ->orderByDesc('created_at')
+            ->simplePaginate(15);
         return response()->json(['success' => true, 'data' => $orders]);
     }
 

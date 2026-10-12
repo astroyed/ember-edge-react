@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Lock, Mail, ArrowRight } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { api } from '@/lib/api';
+import { BrandLogo } from '@/components/layout/BrandLogo';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -38,7 +39,8 @@ export default function LoginPage() {
     <div className="max-w-md mx-auto px-4 py-16">
       <div className="bg-[#f7f4ed] border border-[#eceae4] p-8 space-y-6 shadow-[rgba(0,0,0,0.1)_0px_4px_12px]">
         <div className="text-center space-y-2">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#e58a2b]">EMBER EDGE ATELIER</span>
+          <BrandLogo size="lg" className="mx-auto" />
+          <span className="block text-xs font-bold uppercase tracking-widest text-[#e58a2b]">ATELIER</span>
           <h1 className="text-2xl font-black uppercase text-[#1c1c1c] font-serif">Customer Sign In</h1>
           <p className="text-xs text-[#5f5f5d]">Access your orders, address book, and saved wishlist.</p>
         </div>

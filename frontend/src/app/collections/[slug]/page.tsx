@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { ProductCard } from '@/components/product/ProductCard';
 import { Product } from '@/types';
 import { api } from '@/lib/api';
+import { BrandLogo } from '@/components/layout/BrandLogo';
 
 export default function CollectionPage() {
   const params = useParams();
@@ -56,7 +57,8 @@ export default function CollectionPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
       {/* Banner */}
       <div className="bg-[#f7f4ed] border border-[#eceae4] p-8 sm:p-12 text-center space-y-3">
-        <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#e58a2b]">EMBER EDGE ATELIER</span>
+        <BrandLogo size="sm" className="mx-auto" />
+        <span className="block text-xs font-bold uppercase tracking-[0.25em] text-[#e58a2b]">ATELIER</span>
         <h1 className="text-3xl sm:text-5xl font-black uppercase text-[#1c1c1c] font-serif">{meta.title}</h1>
         <p className="text-xs sm:text-sm text-[#5f5f5d] max-w-xl mx-auto font-light">{meta.subtitle}</p>
       </div>

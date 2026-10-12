@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
 import { Facebook, Twitter, Instagram } from '@/components/ui/BrandIcons';
+import { BrandLogo } from './BrandLogo';
 
 export const Footer = () => {
   return (
@@ -13,14 +14,12 @@ export const Footer = () => {
 
           {/* Brand Ethos Column */}
           <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="inline-block">
-              <span className="text-2xl font-black tracking-tighter uppercase font-serif text-[#fcfbf8]">
-                EMBER <span className="text-[#e58a2b]">EDGE</span>
-              </span>
+            <div>
+              <BrandLogo size="md" wordmarkClassName="text-[#fcfbf8]" />
               <span className="block text-[9px] tracking-[0.3em] text-[#5f5f5d] uppercase font-sans font-medium mt-1">
                 ATELIER & STYLING
               </span>
-            </Link>
+            </div>
             <p className="text-xs text-[#5f5f5d] leading-relaxed max-w-sm">
               Ember Edge is a contemporary fashion house crafting architectural menswear, minimalist womenswear, and premium children's apparel. Defined by 280 GSM luxury textiles and precision tailoring.
             </p>

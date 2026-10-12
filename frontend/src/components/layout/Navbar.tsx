@@ -7,6 +7,7 @@ import { ShoppingBag, Heart, User, Search, Menu, X, ShieldCheck } from 'lucide-r
 import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
+import { BrandLogo } from './BrandLogo';
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -63,14 +64,7 @@ export const Navbar = () => {
 
             {/* Brand Logo */}
             <div className="flex-1 md:flex-none text-center md:text-left">
-              <Link href="/" className="inline-block group">
-                <span className="text-2xl sm:text-3xl font-black tracking-tighter uppercase font-serif text-[#1c1c1c]">
-                  EMBER <span className="text-[#e58a2b] group-hover:text-[#d97706] transition-colors">EDGE</span>
-                </span>
-                {/* <span className="block text-[9px] tracking-[0.3em] text-[#5f5f5d] uppercase font-sans font-medium text-center md:text-left">
-                  STYLE & ELEGANCE
-                </span> */}
-              </Link>
+              <BrandLogo size="md" className="mx-auto md:mx-0" />
             </div>
 
             {/* Desktop Nav Links */}

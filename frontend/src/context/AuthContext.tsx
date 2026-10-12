@@ -33,13 +33,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     if (savedToken) {
       setToken(savedToken);
+      let hasCachedUser = false;
       if (savedUser) {
         try {
           setUser(JSON.parse(savedUser));
+          hasCachedUser = true;
         } catch (e) {
           console.error('Failed to parse user', e);
         }
       }
+      // Let cached identity render immediately while the token is refreshed in the background.
+      if (hasCachedUser) setLoading(false);
       // Refresh from API
       api.getUserProfile()
         .then((res) => {

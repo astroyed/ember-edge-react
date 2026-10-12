@@ -8,7 +8,7 @@ export default function ProductsTab({ products }: ProductsTabProps) {
   return (
     <section className="space-y-6 animate-fadeIn">
       <header>
-        <h2 className="font-serif text-2xl tracking-[-0.5px] text-[#1c1c1c]">Product inventory</h2>
+        <h2 className="font-serif text-2xl font-semibold tracking-[-0.5px] text-[#1c1c1c]">Product inventory</h2>
         <p className="mt-2 text-sm text-[#5f5f5d]">Catalog, pricing, and available variants.</p>
       </header>
       <div className="overflow-hidden rounded-xl border border-[#eceae4] bg-[#f7f4ed]">

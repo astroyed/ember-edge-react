@@ -81,7 +81,8 @@ class AuthController extends Controller
 
     public function user(Request $request)
     {
-        $user = $request->user()->load(['addresses', 'orders.items']);
+        // Keep auth hydration lightweight; addresses and order history have dedicated endpoints.
+        $user = $request->user();
 
         return response()->json([
             'success' => true,
