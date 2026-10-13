@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Heart } from 'lucide-react';
 import { Product } from '@/types';
 import { useWishlist } from '@/context/WishlistContext';
+import { resolveProductImageUrl } from '@/lib/api';
 
 interface ProductCardProps {
   product: Product;
@@ -14,13 +15,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { isInWishlist, toggleWishlist } = useWishlist();
   const inWishlist = isInWishlist(product.id);
 
-  const primaryImage =
+  const primaryImage = resolveProductImageUrl(
     product.images?.find((img) => img.is_primary)?.image_path ||
     product.images?.[0]?.image_path ||
-    'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=600';
+    'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=600'
+  );
 
-  const hoverImage =
-    product.images?.[1]?.image_path || primaryImage;
+  const hoverImage = resolveProductImageUrl(product.images?.[1]?.image_path || primaryImage);
 
   const hasDiscount = product.sale_price && product.sale_price < product.price;
   const discountPercent = hasDiscount

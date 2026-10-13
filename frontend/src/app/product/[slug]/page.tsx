@@ -10,7 +10,7 @@ import { Product, ProductVariant, Review } from '@/types';
 import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
 import { useAuth } from '@/context/AuthContext';
-import { api } from '@/lib/api';
+import { api, resolveProductImageUrl } from '@/lib/api';
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -49,7 +49,7 @@ export default function ProductDetailPage() {
           setRelatedProducts(res.data.related_products || []);
 
           const primaryImg = prod.images?.find((img: any) => img.is_primary)?.image_path || prod.images?.[0]?.image_path;
-          setActiveImage(primaryImg || '');
+          setActiveImage(resolveProductImageUrl(primaryImg));
 
           // Auto select first color & size variant
           if (prod.variants && prod.variants.length > 0) {
@@ -188,19 +188,23 @@ export default function ProductDetailPage() {
           {/* Thumbnails */}
           {product.images && product.images.length > 1 && (
             <div className="flex space-x-3 overflow-x-auto pb-2">
-              {product.images.map((img) => (
-                <button
-                  key={img.id}
-                  onClick={() => setActiveImage(img.image_path)}
-                  className={`w-20 h-24 border rounded-lg overflow-hidden bg-[#5f5f5d]/5 flex-shrink-0 transition-all ${
-                    activeImage === img.image_path
-                      ? 'border-[#1c1c1c] ring-1 ring-[#1c1c1c]'
-                      : 'border-[#eceae4] opacity-70 hover:opacity-100'
-                  }`}
-                >
-                  <img src={img.image_path} alt="thumbnail" className="w-full h-full object-cover" />
-                </button>
-              ))}
+              {product.images.map((img) => {
+                const imageSrc = resolveProductImageUrl(img.image_path);
+
+                return (
+                  <button
+                    key={img.id}
+                    onClick={() => setActiveImage(imageSrc)}
+                    className={`w-20 h-24 border rounded-lg overflow-hidden bg-[#5f5f5d]/5 flex-shrink-0 transition-all ${
+                      activeImage === imageSrc
+                        ? 'border-[#1c1c1c] ring-1 ring-[#1c1c1c]'
+                        : 'border-[#eceae4] opacity-70 hover:opacity-100'
+                    }`}
+                  >
+                    <img src={imageSrc} alt="thumbnail" className="w-full h-full object-cover" />
+                  </button>
+                );
+              })}
             </div>
           )}
         </div>

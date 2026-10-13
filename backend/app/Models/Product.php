@@ -48,6 +48,11 @@ class Product extends Model
         return $this->hasOne(ProductImage::class)->where('is_primary', true);
     }
 
+    public function getPrimaryImageUrlAttribute()
+    {
+        return $this->primaryImage?->image_path;
+    }
+
     public function variants()
     {
         return $this->hasMany(ProductVariant::class);

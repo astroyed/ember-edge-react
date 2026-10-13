@@ -48,7 +48,7 @@ export default function HomePage() {
   const defaultBanner = {
     title: 'Four Seasons Collections',
     subtitle: 'Heavyweight textiles, drop shoulders & architectural outer silhouettes.',
-    image_path: 'banner1.png',
+    image_path: 'banner.jpg',
     button_text: 'Explore Collection',
     button_url: '/shop',
     position: 2
@@ -199,17 +199,17 @@ export default function HomePage() {
           {/* Men Card */}
           <Link href="/collections/men" className="group relative h-96 overflow-hidden bg-[#5f5f5d]/5 border border-[#eceae4]">
             <img
-              src="https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?q=80&w=800"
-              alt="Men's Collection"
+              src="/images/mint-green.jpg"
+              alt="Hand Bag Collection"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1c1c1c]/90 via-[#1c1c1c]/30 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
-              <span className="text-[10px] font-bold text-[#e58a2b] uppercase tracking-widest block">MENSWEAR</span>
-              <h3 className="text-xl font-black uppercase text-[#fcfbf8] font-serif">Men's Collection</h3>
-              <p className="text-xs text-[#5f5f5d] mt-1 line-clamp-1">Oversized tees, utility cargos & outerwear.</p>
+              <span className="text-[10px] font-bold text-[#e58a2b] uppercase tracking-widest block">Hand Bag</span>
+              <h3 className="text-xl font-black uppercase text-[#fcfbf8] font-serif">Hand Bags Collection</h3>
+              <p className="text-xs text-[#ffffff] mt-1 line-clamp-1">Formal and daily wear.</p>
               <span className="inline-flex items-center space-x-1 text-xs font-bold uppercase text-[#e58a2b] mt-3 group-hover:translate-x-1 transition-transform">
-                <span>Shop Men</span>
+                <span>Shop Hand Bags</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </div>
@@ -218,17 +218,17 @@ export default function HomePage() {
           {/* Women Card */}
           <Link href="/collections/women" className="group relative h-96 overflow-hidden bg-[#5f5f5d]/5 border border-[#eceae4]">
             <img
-              src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800"
+              src="/images/handbag.jpg"
               alt="Women's Collection"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1c1c1c]/90 via-[#1c1c1c]/30 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
-              <span className="text-[10px] font-bold text-[#e58a2b] uppercase tracking-widest block">COUTURE</span>
-              <h3 className="text-xl font-black uppercase text-[#fcfbf8] font-serif">Women's Collection</h3>
-              <p className="text-xs text-[#5f5f5d] mt-1 line-clamp-1">Silk evening gowns, knitwear & structured blazers.</p>
+              <span className="text-[10px] font-bold text-[#e58a2b] uppercase tracking-widest block">Wallets</span>
+              <h3 className="text-xl font-black uppercase text-[#fcfbf8] font-serif">Wallets Collection</h3>
+              <p className="text-xs text-[#ffffff] mt-1 line-clamp-1">Silk & structured wallets.</p>
               <span className="inline-flex items-center space-x-1 text-xs font-bold uppercase text-[#e58a2b] mt-3 group-hover:translate-x-1 transition-transform">
-                <span>Shop Women</span>
+                <span>Shop Wallets</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </div>
@@ -237,52 +237,22 @@ export default function HomePage() {
           {/* Kids Card */}
           <Link href="/collections/kids" className="group relative h-96 overflow-hidden bg-[#5f5f5d]/5 border border-[#eceae4]">
             <img
-              src="https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?q=80&w=800"
+              src="/images/partyBag.webp"
               alt="Kids Collection"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1c1c1c]/90 via-[#1c1c1c]/30 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
-              <span className="text-[10px] font-bold text-[#e58a2b] uppercase tracking-widest block">JUNIOR</span>
-              <h3 className="text-xl font-black uppercase text-[#fcfbf8] font-serif">Kids Collection</h3>
-              <p className="text-xs text-[#5f5f5d] mt-1 line-clamp-1">Organic fleece hoodies & everyday comfortable wear.</p>
+              <span className="text-[10px] font-bold text-[#e58a2b] uppercase tracking-widest block">Clutches</span>
+              <h3 className="text-xl font-black uppercase text-[#fcfbf8] font-serif">Clutches Collection</h3>
+              <p className="text-xs text-[#ffffff] mt-1 line-clamp-1">Everyday comfortable wear.</p>
               <span className="inline-flex items-center space-x-1 text-xs font-bold uppercase text-[#e58a2b] mt-3 group-hover:translate-x-1 transition-transform">
-                <span>Shop Kids</span>
+                <span>Shop Clutches</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </div>
           </Link>
         </div>
-      </section>
-
-      {/* 4. FEATURED PRODUCTS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <div className="flex items-end justify-between border-b border-[#eceae4] pb-4">
-          <div>
-            <span className="text-xs font-bold uppercase tracking-widest text-[#e58a2b]">MUST-HAVE DROPS</span>
-            <h2 className="text-2xl sm:text-3xl font-black uppercase text-[#1c1c1c] font-serif mt-1">
-              Featured Products
-            </h2>
-          </div>
-          <Link href="/shop" className="text-xs font-bold uppercase text-[#e58a2b] hover:text-[#d97706] flex items-center space-x-1">
-            <span>Explore Catalog</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-
-        {loading ? (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 animate-pulse">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-80 bg-[#5f5f5d]/10 border border-[#eceae4]" />
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {featuredProducts.slice(0, 8).map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        )}
       </section>
 
       {/* 5. EDITORIAL LOOKBOOK SECTION */}
@@ -293,7 +263,7 @@ export default function HomePage() {
               PHILOSOPHY OF CRAFT
             </span>
             <h2 className="text-3xl sm:text-5xl font-black uppercase text-[#1c1c1c] font-serif leading-tight">
-              Ember Edge Atelier & Precision Weaving
+              Ember Edge Precision Weaving
             </h2>
             <p className="text-sm text-[#5f5f5d] leading-relaxed">
               Every garment in our collection undergoes rigorous prototyping. From selecting high-grade 280 GSM long-staple cotton to reinforced flatlock stitching, Ember Edge delivers streetwear and formalwear designed to stand the test of time.
@@ -316,14 +286,14 @@ export default function HomePage() {
 
           <div className="relative h-96 sm:h-[450px] border border-[#eceae4] overflow-hidden group">
             <img
-              src="https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=1000"
-              alt="Ember Edge Atelier Crafting"
+              src="/images/bags-stock.jpg"
+              alt="Ember Edge Crafting"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1c1c1c]/80 via-transparent to-transparent" />
             <div className="absolute bottom-6 left-6 right-6 text-center">
               <span className="text-[10px] uppercase font-bold tracking-widest text-[#e58a2b]">LOOKBOOK 2026</span>
-              <p className="text-sm font-serif font-bold text-[#fcfbf8] uppercase">Architectural Cuts & Drop Shoulders</p>
+              <p className="text-sm font-serif font-bold text-[#fcfbf8] uppercase">Ember Edge Crafting</p>
             </div>
           </div>
         </div>

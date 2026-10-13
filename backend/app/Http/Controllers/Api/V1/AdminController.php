@@ -68,6 +68,7 @@ class AdminController extends Controller
             'variants.*.stock_quantity' => 'required|integer|min:0',
         ]);
 
+        $category = Category::findOrFail($request->category_id);
         $slug = Str::slug($request->name) . '-' . mt_rand(100, 999);
 
         $product = Product::create([
@@ -86,11 +87,22 @@ class AdminController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('products', 'public');
+            $image = $request->file('image');
+            $baseName = 'ee-' . (Str::slug($category->name) ?: 'category') . '-' . (Str::slug($product->name) ?: 'product');
+            $extension = $image->extension();
+            $fileName = $baseName . '.' . $extension;
+            $suffix = 2;
+
+            while (Storage::disk('public')->exists('products/' . $fileName)) {
+                $fileName = $baseName . '-' . $suffix . '.' . $extension;
+                $suffix++;
+            }
+
+            $image->storeAs('products', $fileName, 'public');
 
             ProductImage::create([
                 'product_id' => $product->id,
-                'image_path' => basename($imagePath),
+                'image_path' => $fileName,
                 'is_primary' => true,
                 'display_order' => 0,
             ]);
