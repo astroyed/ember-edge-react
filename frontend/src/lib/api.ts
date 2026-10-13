@@ -18,13 +18,17 @@ function getAuthToken(): string | null {
 export async function fetchApi<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   const token = getAuthToken();
   const sessionId = getSessionId();
+  const isFormData = typeof FormData !== 'undefined' && options.body instanceof FormData;
 
   const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
     'Accept': 'application/json',
     'X-Session-ID': sessionId,
     ...(options.headers as Record<string, string> || {}),
   };
+
+  if (!isFormData) {
+    headers['Content-Type'] = 'application/json';
+  }
 
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
@@ -117,7 +121,7 @@ export const api = {
   // Admin Panel API
   getAdminStats: () => fetchApi<any>('/admin/dashboard-stats'),
   getAdminProducts: () => fetchApi<any>('/admin/products'),
-  createAdminProduct: (productData: any) => fetchApi<any>('/admin/products', { method: 'POST', body: JSON.stringify(productData) }),
+  createAdminProduct: (productData: FormData) => fetchApi<any>('/admin/products', { method: 'POST', body: productData }),
   getAdminOrders: () => fetchApi<any>('/admin/orders'),
   updateAdminOrderStatus: (id: number, status: string, trackingNumber?: string) =>
     fetchApi<any>(`/admin/orders/${id}/status`, { method: 'PUT', body: JSON.stringify({ status, tracking_number: trackingNumber }) }),

@@ -10,7 +10,6 @@ interface CreateProductTabProps {
   onCreated: () => void;
 }
 
-const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=800';
 const inputClassName = 'mt-2 min-h-12 w-full rounded-md border border-[#eceae4] bg-[#f7f4ed] px-4 py-3 text-sm text-[#1c1c1c] outline-none transition placeholder:text-[#5f5f5d] hover:border-[#1c1c1c]/40 focus:border-[#1c1c1c]/40 focus:ring-2 focus:ring-[#1c1c1c]/10';
 
 export default function CreateProductTab({ categories, onCreated }: CreateProductTabProps) {
@@ -18,7 +17,7 @@ export default function CreateProductTab({ categories, onCreated }: CreateProduc
   const [categoryId, setCategoryId] = useState<number>(1);
   const [price, setPrice] = useState('4500');
   const [description, setDescription] = useState('');
-  const [imageUrl, setImageUrl] = useState(DEFAULT_IMAGE);
+  const [image, setImage] = useState<File | null>(null);
   const [color, setColor] = useState('Black');
   const [size, setSize] = useState('M');
   const [stock, setStock] = useState('25');
@@ -30,14 +29,18 @@ export default function CreateProductTab({ categories, onCreated }: CreateProduc
 
     try {
       const sku = `EE-${color.substring(0, 3).toUpperCase()}-${size.toUpperCase()}-${Math.floor(Math.random() * 1000)}`;
-      const response = await api.createAdminProduct({
-        name,
-        category_id: categoryId,
-        price: Number.parseFloat(price),
-        description,
-        image_url: imageUrl,
-        variants: [{ color, size, sku, stock_quantity: Number.parseInt(stock, 10) }],
-      });
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('category_id', String(categoryId));
+      formData.append('price', price);
+      formData.append('description', description);
+      formData.append('variants[0][color]', color);
+      formData.append('variants[0][size]', size);
+      formData.append('variants[0][sku]', sku);
+      formData.append('variants[0][stock_quantity]', stock);
+      if (image) formData.append('image', image);
+
+      const response = await api.createAdminProduct(formData);
 
       if (response.success) {
         setMessage('Product created successfully!');
@@ -93,11 +96,11 @@ export default function CreateProductTab({ categories, onCreated }: CreateProduc
               </label>
             </div>
             <label className="block text-sm text-[#292824]">
-              Product image URL
-              <span className="mt-1 block text-xs font-normal text-[#5f5d57]">Paste a publicly accessible image link.</span>
+              Product image
+              <span className="mt-1 block text-xs font-normal text-[#5f5d57]">Choose an image file to upload.</span>
               <span className="relative mt-2 block">
                 <ImageIcon className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#66635d]" aria-hidden="true" />
-                <input type="url" value={imageUrl} onChange={(event) => setImageUrl(event.target.value)} className={`${inputClassName} mt-0 pl-11`} />
+                <input type="file" accept="image/*" required onChange={(event) => setImage(event.target.files?.[0] ?? null)} className={`${inputClassName} mt-0 pl-11`} />
               </span>
             </label>
             <label className="block text-sm text-[#292824]">

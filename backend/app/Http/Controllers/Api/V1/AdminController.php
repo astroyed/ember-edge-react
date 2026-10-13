@@ -10,6 +10,7 @@ use App\Models\ProductImage;
 use App\Models\ProductVariant;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class AdminController extends Controller
@@ -59,7 +60,7 @@ class AdminController extends Controller
             'is_featured' => 'boolean',
             'is_new_arrival' => 'boolean',
             'status' => 'in:draft,active,archived',
-            'image_url' => 'nullable|string',
+            'image' => 'required|image|max:10240',
             'variants' => 'required|array|min:1',
             'variants.*.color' => 'required|string',
             'variants.*.size' => 'required|string',
@@ -84,10 +85,12 @@ class AdminController extends Controller
             'tags' => ['fashion', 'new'],
         ]);
 
-        if ($request->filled('image_url')) {
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('products', 'public');
+
             ProductImage::create([
                 'product_id' => $product->id,
-                'image_path' => $request->image_url,
+                'image_path' => basename($imagePath),
                 'is_primary' => true,
                 'display_order' => 0,
             ]);
