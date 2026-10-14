@@ -105,6 +105,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     color.toLowerCase().includes('white') ? '#fcfbf8' :
                     color.toLowerCase().includes('gold') ? '#d97706' :
                     color.toLowerCase().includes('charcoal') ? '#3f3f46' :
+                    color.toLowerCase().includes('copper') ? '#B87333' :
                     color.toLowerCase().includes('olive') ? '#4d7c0f' : '#71717a'
                 }}
               />

@@ -143,8 +143,8 @@ export default function HomePage() {
               <Award className="w-6 h-6" />
             </div>
             <div>
-              <h4 className="text-xs font-bold text-[#1c1c1c] uppercase">280 GSM Cotton</h4>
-              <p className="text-[11px] text-[#5f5f5d]">Luxury combed cotton weaving</p>
+              <h4 className="text-xs font-bold text-[#1c1c1c] uppercase">Limited Collection</h4>
+              <p className="text-[11px] text-[#5f5f5d]">Luxury & Daily wear</p>
             </div>
           </div>
 
@@ -174,7 +174,7 @@ export default function HomePage() {
             </div>
             <div>
               <h4 className="text-xs font-bold text-[#1c1c1c] uppercase">Verified Authenticity</h4>
-              <p className="text-[11px] text-[#5f5f5d]">100% original Ember Edge tailoring</p>
+              <p className="text-[11px] text-[#5f5f5d]">100% original Ember Edge Collection</p>
             </div>
           </div>
         </div>
@@ -218,8 +218,8 @@ export default function HomePage() {
           {/* Women Card */}
           <Link href="/collections/women" className="group relative h-96 overflow-hidden bg-[#5f5f5d]/5 border border-[#eceae4]">
             <img
-              src="/images/handbag.jpg"
-              alt="Women's Collection"
+              src="/images/wallets.jpg"
+              alt="Wallets Collection"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1c1c1c]/90 via-[#1c1c1c]/30 to-transparent" />
@@ -237,8 +237,8 @@ export default function HomePage() {
           {/* Kids Card */}
           <Link href="/collections/kids" className="group relative h-96 overflow-hidden bg-[#5f5f5d]/5 border border-[#eceae4]">
             <img
-              src="/images/partyBag.webp"
-              alt="Kids Collection"
+              src="/images/golden-clutch.jpg"
+              alt="Clutches Collection"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1c1c1c]/90 via-[#1c1c1c]/30 to-transparent" />
@@ -266,7 +266,7 @@ export default function HomePage() {
               Ember Edge Precision Weaving
             </h2>
             <p className="text-sm text-[#5f5f5d] leading-relaxed">
-              Every garment in our collection undergoes rigorous prototyping. From selecting high-grade 280 GSM long-staple cotton to reinforced flatlock stitching, Ember Edge delivers streetwear and formalwear designed to stand the test of time.
+              Every bag in our collection undergoes rigorous prototyping. From selecting high-grade 280 GSM long-staple cotton to reinforced flatlock stitching, Ember Edge delivers streetwear and formalwear designed to stand the test of time.
             </p>
             <div className="pt-2 flex items-center space-x-4">
               <Link
@@ -274,12 +274,6 @@ export default function HomePage() {
                 className="bg-[#1c1c1c] hover:bg-[#1c1c1c]/80 text-[#fcfbf8] px-6 py-3 text-xs font-black uppercase tracking-wider inset-shadow-btn hover:brightness-90 transition-all glow-focus flex items-center"
               >
                 Read Brand Story
-              </Link>
-              <Link
-                href="/size-guide"
-                className="border border-[#5f5f5d]/40 hover:border-[#e58a2b] text-[#1c1c1c] px-6 py-3 text-xs font-bold uppercase tracking-wider transition-colors"
-              >
-                View Fit Guide
               </Link>
             </div>
           </div>
@@ -303,7 +297,7 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="flex items-end justify-between border-b border-[#eceae4] pb-4">
           <div>
-            <span className="text-xs font-bold uppercase tracking-widest text-[#e58a2b]">FRESH FROM THE ATELIER</span>
+            <span className="text-xs font-bold uppercase tracking-widest text-[#e58a2b]">FRESH FROM THE WORKSHOP</span>
             <h2 className="text-2xl sm:text-3xl font-black uppercase text-[#1c1c1c] font-serif mt-1">
               New Arrivals
             </h2>
@@ -339,7 +333,7 @@ export default function HomePage() {
               {[1, 2, 3, 4, 5].map((s) => (<Star key={s} className="w-3.5 h-3.5 fill-current" />))}
             </div>
             <p className="text-xs italic leading-relaxed">
-              "The 280 GSM heavyweight tee is standard-setting. Perfect oversized drape that holds structure even after multiple washes."
+              "I really like the Golden Glory Clutch. Perfect shine and awesome work of gems."
             </p>
             <div className="pt-2 border-t border-[#eceae4] flex justify-between items-center text-[11px]">
               <span className="font-bold text-[#1c1c1c] uppercase">Hamza K.</span>
@@ -352,7 +346,7 @@ export default function HomePage() {
               {[1, 2, 3, 4, 5].map((s) => (<Star key={s} className="w-3.5 h-3.5 fill-current" />))}
             </div>
             <p className="text-xs italic leading-relaxed">
-              "Ordered the Italian Wool Trench Coat. Shipping was fast (2 days to Lahore) and fit is impeccably sharp."
+              "Ordered the Golden Glory Clutch and it was as it is as shown on the website."
             </p>
             <div className="pt-2 border-t border-[#eceae4] flex justify-between items-center text-[11px]">
               <span className="font-bold text-[#1c1c1c] uppercase">Ayesha M.</span>

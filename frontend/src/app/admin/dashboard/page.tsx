@@ -63,9 +63,13 @@ export default function AdminDashboardPage() {
           break;
         }
         case 'products': {
-          const response = await api.getAdminProducts();
+          const [response, categoryResponse] = await Promise.all([
+            api.getAdminProducts(),
+            api.getCategories().catch(() => null),
+          ]);
           if (response.success) {
             setProducts(response.data?.data || response.data || []);
+            if (categoryResponse?.success) setCategories(categoryResponse.data || []);
             succeeded = true;
           }
           break;
@@ -128,7 +132,6 @@ export default function AdminDashboardPage() {
       <header className="flex flex-col justify-between gap-6 border-b border-[#eceae4] pb-8 sm:flex-row sm:items-end">
         <div className="max-w-2xl">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-            <BrandLogo size="sm" />
             <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#5f5f5d]">Administration</span>
           </div>
           <h1 className="mt-3 font-serif text-4xl font-semibold leading-none tracking-[-1.2px] text-[#1c1c1c] sm:text-5xl">Dashboard</h1>
@@ -172,7 +175,13 @@ export default function AdminDashboardPage() {
       )}
       {activeTab === 'stats' && loadedTabs.stats && <StatsTab stats={stats} />}
       {activeTab === 'orders' && loadedTabs.orders && <OrdersTab orders={orders} onRefresh={() => { void loadTabData('orders', true); void loadTabData('stats', true); }} />}
-      {activeTab === 'products' && loadedTabs.products && <ProductsTab products={products} />}
+      {activeTab === 'products' && loadedTabs.products && (
+        <ProductsTab
+          products={products}
+          categories={categories}
+          onRefresh={() => { void loadTabData('products', true); void loadTabData('stats', true); }}
+        />
+      )}
       {activeTab === 'banners' && (loadedTabs.banners || loadingTabs.banners) && <BannersTab banners={banners} loading={Boolean(loadingTabs.banners)} loadError={bannerLoadError} onRefresh={() => void loadTabData('banners', true)} />}
       {activeTab === 'create_product' && loadedTabs.create_product && <CreateProductTab categories={categories} onCreated={() => { void loadTabData('products', true); void loadTabData('stats', true); }} />}
     </main>

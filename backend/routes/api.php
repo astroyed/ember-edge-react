@@ -83,6 +83,8 @@ Route::prefix('v1')->group(function () {
         Route::get('/dashboard-stats', [AdminController::class, 'dashboardStats']);
         Route::get('/products', [AdminController::class, 'products']);
         Route::post('/products', [AdminController::class, 'storeProduct']);
+        Route::put('/products/{id}', [AdminController::class, 'updateProduct']);
+        Route::delete('/products/{id}', [AdminController::class, 'deleteProduct']);
         Route::get('/orders', [AdminController::class, 'orders']);
         Route::put('/orders/{id}/status', [AdminController::class, 'updateOrderStatus']);
 

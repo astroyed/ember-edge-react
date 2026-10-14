@@ -135,6 +135,8 @@ export const api = {
   getAdminStats: () => fetchApi<any>('/admin/dashboard-stats'),
   getAdminProducts: () => fetchApi<any>('/admin/products'),
   createAdminProduct: (productData: FormData) => fetchApi<any>('/admin/products', { method: 'POST', body: productData }),
+  updateAdminProduct: (id: number, productData: FormData) => fetchApi<any>(`/admin/products/${id}`, { method: 'POST', body: productData }),
+  deleteAdminProduct: (id: number) => fetchApi<any>(`/admin/products/${id}`, { method: 'DELETE' }),
   getAdminOrders: () => fetchApi<any>('/admin/orders'),
   updateAdminOrderStatus: (id: number, status: string, trackingNumber?: string) =>
     fetchApi<any>(`/admin/orders/${id}/status`, { method: 'PUT', body: JSON.stringify({ status, tracking_number: trackingNumber }) }),

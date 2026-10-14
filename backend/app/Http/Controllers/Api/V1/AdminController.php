@@ -10,6 +10,7 @@ use App\Models\ProductImage;
 use App\Models\ProductVariant;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -38,10 +39,14 @@ class AdminController extends Controller
     public function products(Request $request)
     {
         $products = Product::query()
-            ->select(['id', 'name', 'category_id', 'price', 'created_at'])
+            ->select([
+                'id', 'name', 'slug', 'description', 'short_description', 'category_id',
+                'brand', 'price', 'sale_price', 'is_featured', 'is_new_arrival', 'status', 'tags', 'created_at',
+            ])
             ->with([
-                'category:id,name',
+                'category:id,name,slug',
                 'variants:id,product_id,color,size,stock_quantity',
+                'images',
             ])
             ->orderByDesc('created_at')
             ->simplePaginate(15);
@@ -87,18 +92,7 @@ class AdminController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $baseName = 'ee-' . (Str::slug($category->name) ?: 'category') . '-' . (Str::slug($product->name) ?: 'product');
-            $extension = $image->extension();
-            $fileName = $baseName . '.' . $extension;
-            $suffix = 2;
-
-            while (Storage::disk('public')->exists('products/' . $fileName)) {
-                $fileName = $baseName . '-' . $suffix . '.' . $extension;
-                $suffix++;
-            }
-
-            $image->storeAs('products', $fileName, 'public');
+            $fileName = $this->storeProductImage($request->file('image'), $category, $product);
 
             ProductImage::create([
                 'product_id' => $product->id,
@@ -126,6 +120,94 @@ class AdminController extends Controller
             'message' => 'Product created successfully',
             'data' => $product->load(['images', 'variants']),
         ], 201);
+    }
+
+    public function updateProduct(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'price' => 'required|numeric|min:0',
+            'sale_price' => 'nullable|numeric|min:0',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|max:10240',
+        ]);
+
+        $product->fill([
+            'name' => $validated['name'],
+            'category_id' => $validated['category_id'],
+            'price' => $validated['price'],
+            'sale_price' => $validated['sale_price'] ?? null,
+            'description' => $validated['description'] ?? null,
+            'short_description' => Str::limit($validated['description'] ?? '', 120),
+        ]);
+        $product->save();
+
+        if ($request->hasFile('image')) {
+            $category = Category::findOrFail($product->category_id);
+            $fileName = $this->storeProductImage($request->file('image'), $category, $product);
+            $primaryImage = $product->primaryImage()->first();
+            $oldImagePath = $primaryImage?->getRawOriginal('image_path');
+
+            if ($primaryImage) {
+                $primaryImage->image_path = $fileName;
+                $primaryImage->save();
+            } else {
+                $product->images()->create([
+                    'image_path' => $fileName,
+                    'is_primary' => true,
+                    'display_order' => 0,
+                ]);
+            }
+
+            if ($oldImagePath && !filter_var($oldImagePath, FILTER_VALIDATE_URL) && !str_starts_with($oldImagePath, '/')) {
+                Storage::disk('public')->delete('products/' . basename($oldImagePath));
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Product updated successfully',
+            'data' => $product->load(['category', 'images', 'variants']),
+        ]);
+    }
+
+    public function deleteProduct($id)
+    {
+        $product = Product::with('images')->findOrFail($id);
+        $imagePaths = $product->images
+            ->map(fn (ProductImage $image) => $image->getRawOriginal('image_path'));
+
+        $product->delete();
+
+        foreach ($imagePaths as $imagePath) {
+            if ($imagePath && !filter_var($imagePath, FILTER_VALIDATE_URL) && !str_starts_with($imagePath, '/')) {
+                Storage::disk('public')->delete('products/' . basename($imagePath));
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Product deleted successfully',
+        ]);
+    }
+
+    private function storeProductImage(UploadedFile $image, Category $category, Product $product): string
+    {
+        $baseName = 'ee-' . (Str::slug($category->name) ?: 'category') . '-' . (Str::slug($product->name) ?: 'product');
+        $extension = $image->extension();
+        $fileName = $baseName . '.' . $extension;
+        $suffix = 2;
+
+        while (Storage::disk('public')->exists('products/' . $fileName)) {
+            $fileName = $baseName . '-' . $suffix . '.' . $extension;
+            $suffix++;
+        }
+
+        $image->storeAs('products', $fileName, 'public');
+
+        return $fileName;
     }
 
     public function orders(Request $request)
