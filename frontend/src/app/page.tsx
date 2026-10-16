@@ -46,9 +46,9 @@ export default function HomePage() {
   }, [banners]);
 
   const defaultBanner = {
-    title: 'Four Seasons Collections',
-    subtitle: 'Heavyweight textiles, drop shoulders & architectural outer silhouettes.',
-    image_path: 'banner.jpg',
+    title: 'Style Meets Everyday Life',
+    subtitle: 'Bags For Every Occasion',
+    image_path: 'ee-banner1.png',
     button_text: 'Explore Collection',
     button_url: '/shop',
     position: 2
@@ -100,12 +100,12 @@ export default function HomePage() {
               <h1 className="text-5xl sm:text-6xl md:text-7xl font-black uppercase tracking-tight text-[#1c1c1c] font-serif leading-tight">
                 {activeBanner.title}
               </h1>
-              <p className="text-base sm:text-lg text-[#5f5f5d] max-w-xl font-light leading-relaxed"
+              {/* <p className="text-base sm:text-lg text-[#ffffff] max-w-xl font-bold leading-relaxed"
                 style={{ marginLeft: pos === 3 ? 'auto' : pos === 2 ? 'auto' : undefined,
                          marginRight: pos === 1 ? 'auto' : pos === 2 ? 'auto' : undefined }}
               >
                 {activeBanner.subtitle}
-              </p>
+              </p> */}
               <div className="pt-4 flex flex-wrap gap-4" style={{ justifyContent }}>
                 <Link
                   href={activeBanner.button_url}

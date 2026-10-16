@@ -70,6 +70,7 @@ export const api = {
   getProductBySlug: (slug: string) => fetchApi<any>(`/products/${slug}`),
   getFeaturedProducts: () => fetchApi<any>('/products/featured'),
   getNewArrivals: () => fetchApi<any>('/products/new-arrivals'),
+  getHomepageData: () => fetchApi<any>('/homepage'),
   getCategories: () => fetchApi<any>('/categories'),
   getCategoryBySlug: (slug: string) => fetchApi<any>(`/categories/${slug}`),
 

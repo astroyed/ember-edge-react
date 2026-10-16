@@ -209,25 +209,6 @@ function ShopContent() {
             </div>
           </div>
 
-          {/* Size Filter */}
-          <div className="space-y-2 pt-4 border-t border-[#eceae4]">
-            <h4 className="text-xs font-semibold text-[#5f5f5d] uppercase tracking-wider">Size</h4>
-            <div className="flex flex-wrap gap-1.5">
-              {sizesList.map((size) => (
-                <button
-                  key={size}
-                  onClick={() => setSelectedSize(selectedSize === size ? '' : size)}
-                  className={`text-[11px] px-3 py-1 border rounded-full transition-colors font-mono ${
-                    selectedSize === size
-                      ? 'border-[#1c1c1c] bg-[#1c1c1c] text-[#fcfbf8] font-bold'
-                      : 'border-[#eceae4] text-[#5f5f5d] hover:border-[#1c1c1c]'
-                  }}`}
-                >
-                  {size}
-                </button>
-              ))}
-            </div>
-          </div>
         </aside>
 
         {/* Product Catalog Grid */}

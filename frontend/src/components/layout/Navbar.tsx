@@ -32,7 +32,7 @@ export const Navbar = () => {
   const navLinks = [
     { name: 'Shop All', href: '/shop' },
     // { name: 'Men', href: '/collections/men' },
-    { name: 'Women', href: '/collections/women' },
+    // { name: 'Women', href: '/collections/women' },
     // { name: 'Kids', href: '/collections/kids' },
     // { name: 'Size Guide', href: '/size-guide' },
     { name: 'About', href: '/about' },
