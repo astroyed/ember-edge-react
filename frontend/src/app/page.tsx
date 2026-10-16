@@ -98,7 +98,9 @@ export default function HomePage() {
                 EST. 2026 • EMBER EDGE LUXURY
               </span>
               <h1 className="text-5xl sm:text-6xl md:text-7xl font-black uppercase tracking-tight text-[#1c1c1c] font-serif leading-tight">
-                {activeBanner.title}
+                <span className="inline bg-[#f7f4ed]/90 px-3 py-1 box-decoration-clone">
+                  {activeBanner.title}
+                </span>
               </h1>
               {/* <p className="text-base sm:text-lg text-[#ffffff] max-w-xl font-bold leading-relaxed"
                 style={{ marginLeft: pos === 3 ? 'auto' : pos === 2 ? 'auto' : undefined,
@@ -196,8 +198,8 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Men Card */}
-          <Link href="/collections/men" className="group relative h-96 overflow-hidden bg-[#5f5f5d]/5 border border-[#eceae4]">
+          {/* Hand Bag Card */}
+          <Link href="/shop" className="group relative h-96 overflow-hidden bg-[#5f5f5d]/5 border border-[#eceae4]">
             <img
               src="/images/mint-green.jpg"
               alt="Hand Bag Collection"
@@ -215,8 +217,8 @@ export default function HomePage() {
             </div>
           </Link>
 
-          {/* Women Card */}
-          <Link href="/collections/women" className="group relative h-96 overflow-hidden bg-[#5f5f5d]/5 border border-[#eceae4]">
+          {/* Wallets Card */}
+          <Link href="/shop" className="group relative h-96 overflow-hidden bg-[#5f5f5d]/5 border border-[#eceae4]">
             <img
               src="/images/wallets.jpg"
               alt="Wallets Collection"
@@ -234,8 +236,8 @@ export default function HomePage() {
             </div>
           </Link>
 
-          {/* Kids Card */}
-          <Link href="/collections/kids" className="group relative h-96 overflow-hidden bg-[#5f5f5d]/5 border border-[#eceae4]">
+          {/* Clutches Card */}
+          <Link href="/shop" className="group relative h-96 overflow-hidden bg-[#5f5f5d]/5 border border-[#eceae4]">
             <img
               src="/images/golden-clutch.jpg"
               alt="Clutches Collection"
