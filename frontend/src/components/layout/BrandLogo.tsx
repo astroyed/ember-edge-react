@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 type BrandLogoProps = {
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'responsive';
   className?: string;
   wordmarkClassName?: string;
 };
@@ -12,8 +12,20 @@ export const BrandLogo = ({
   className = '',
   wordmarkClassName = '',
 }: BrandLogoProps) => {
-  const markSize = size === 'sm' ? 'h-8 w-8' : size === 'lg' ? 'h-14 w-14' : 'h-11 w-11';
-  const wordmarkSize = size === 'sm' ? 'text-base' : size === 'lg' ? 'text-2xl' : 'text-xl';
+  const markSize = size === 'responsive'
+    ? 'h-8 w-8 md:h-11 md:w-11'
+    : size === 'sm'
+      ? 'h-8 w-8'
+      : size === 'lg'
+        ? 'h-14 w-14'
+        : 'h-11 w-11';
+  const wordmarkSize = size === 'responsive'
+    ? 'text-base md:text-xl'
+    : size === 'sm'
+      ? 'text-base'
+      : size === 'lg'
+        ? 'text-2xl'
+        : 'text-xl';
 
   return (
     <Link href="/" aria-label="Ember Edge home" className={`group inline-flex items-center gap-2 ${className}`}>

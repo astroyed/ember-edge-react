@@ -64,7 +64,7 @@ export const Navbar = () => {
 
             {/* Brand Logo */}
             <div className="flex-1 md:flex-none text-center md:text-left">
-              <BrandLogo size="md" className="mx-auto md:mx-0" />
+              <BrandLogo size="responsive" className="mx-auto md:mx-0" />
             </div>
 
             {/* Desktop Nav Links */}
@@ -85,7 +85,7 @@ export const Navbar = () => {
             </nav>
 
             {/* Right Action Icons */}
-            <div className="flex items-center space-x-4 sm:space-x-6">
+            <div className="hidden md:flex items-center space-x-4 sm:space-x-6">
               {/* Search Toggle */}
               <button
                 onClick={() => setSearchOpen(!searchOpen)}
@@ -171,15 +171,26 @@ export const Navbar = () => {
               {/* Cart Button */}
               <button
                 onClick={() => setCartOpen(true)}
-                className="bg-[#1c1c1c] hover:bg-[#1c1c1c]/80 text-[#fcfbf8] px-6 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider transition-all inset-shadow-btn hover:brightness-90 glow-focus flex items-center space-x-2"
+                className="bg-[#1c1c1c] hover:bg-[#1c1c1c]/80 text-[#fcfbf8] px-3 py-2 sm:px-6 sm:py-2.5 rounded-full font-bold text-[10px] sm:text-xs uppercase tracking-wider transition-all inset-shadow-btn hover:brightness-90 glow-focus flex items-center space-x-1.5 sm:space-x-2"
               >
-                <ShoppingBag className="w-4 h-4" />
-                <span>Cart</span>
-                <span className="bg-[#fcfbf8] text-[#1c1c1c] text-[11px] px-2 py-0.5 font-mono font-bold rounded-full">
+                <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">Cart</span>
+                <span className="bg-[#fcfbf8] text-[#1c1c1c] text-[10px] sm:text-[11px] px-1.5 sm:px-2 py-0.5 font-mono font-bold rounded-full">
                   {cart?.item_count || 0}
                 </span>
               </button>
             </div>
+            <button
+              onClick={() => setCartOpen(true)}
+              aria-label="Open shopping bag"
+              title="Shopping bag"
+              className="md:hidden bg-[#1c1c1c] hover:bg-[#1c1c1c]/80 text-[#fcfbf8] p-2 rounded-full transition-all inset-shadow-btn glow-focus flex items-center space-x-1.5"
+            >
+              <ShoppingBag className="w-4 h-4" />
+              <span className="bg-[#fcfbf8] text-[#1c1c1c] text-[10px] px-1.5 py-0.5 font-mono font-bold rounded-full">
+                {cart?.item_count || 0}
+              </span>
+            </button>
           </div>
         </div>
 
@@ -227,7 +238,36 @@ export const Navbar = () => {
               </Link>
             ))}
 
-            <div className="pt-4 border-t border-[#eceae4] flex flex-col space-y-3">
+            <div className="grid grid-cols-1 gap-3 border-t border-[#eceae4] pt-4">
+              <button
+                onClick={() => {
+                  setSearchOpen(!searchOpen);
+                  setMobileMenuOpen(false);
+                }}
+                className="flex items-center space-x-2 rounded-md border border-[#eceae4] px-3 py-3 text-sm font-medium text-[#1c1c1c] hover:text-[#e58a2b]"
+              >
+                <Search className="w-4 h-4" />
+                <span>Search</span>
+              </button>
+              <Link
+                href="/wishlist"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center space-x-2 rounded-md border border-[#eceae4] px-3 py-3 text-sm font-medium text-[#1c1c1c] hover:text-[#e58a2b]"
+              >
+                <Heart className="w-4 h-4" />
+                <span>Wishlist ({wishlist.length})</span>
+              </Link>
+              <Link
+                href={user ? '/account' : '/login'}
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center space-x-2 rounded-md border border-[#eceae4] px-3 py-3 text-sm font-medium text-[#1c1c1c] hover:text-[#e58a2b]"
+              >
+                <User className="w-4 h-4" />
+                <span>{user ? 'My Account' : 'Sign In'}</span>
+              </Link>
+            </div>
+
+            <div className="flex flex-col space-y-3">
               <Link
                 href="/track-order"
                 onClick={() => setMobileMenuOpen(false)}
