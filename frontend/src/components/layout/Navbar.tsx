@@ -192,7 +192,7 @@ export const Navbar = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search Oversized Tees, Wool Coats, Silk Dresses, Cargo Pants..."
+                placeholder="Search handbags, shoulder bags, crossbody bags, clutches, wallets, etc..."
                 className="w-full bg-[#f7f4ed] text-[#1c1c1c] placeholder-[#5f5f5d] border border-[#eceae4] rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/50 transition-colors"
                 autoFocus
               />

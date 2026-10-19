@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Award, ShieldCheck, Sparkles, ArrowRight } from 'lucide-react';
+import { Heart, ShoppingBag, Sparkles, ArrowRight, User2, Clock } from 'lucide-react';
 
 export default function AboutPage() {
   return (
@@ -16,7 +16,31 @@ export default function AboutPage() {
             The Ember Edge Manifesto
           </h1>
           <p className="text-xs sm:text-sm text-[#5f5f5d] max-w-xl mx-auto font-normal leading-relaxed">
-            Founded on the intersection of heavy textile engineering and minimalist luxury, Ember Edge redefines contemporary fashion through unyielding craftsmanship.
+            We believe a bag is more than something you carry.It carries a part of who you are..
+            We believe style should feel effortless—not forced.
+            That everyday essentials can be beautiful.
+            That functionality should never come at the expense of elegance.
+            And that the right bag can turn an ordinary moment into something special.
+          </p>
+
+          <p className="text-xs sm:text-sm text-[#5f5f5d] max-w-xl mx-auto font-normal leading-relaxed">
+            For busy mornings and slow afternoons.
+            For workdays, weekends, dinners, and everything in between.
+            For the woman who carries her essentials, her ambitions, her memories, and her confidence wherever she goes.
+          </p>
+
+          <p className="text-xs sm:text-sm text-[#5f5f5d] max-w-xl mx-auto font-normal leading-relaxed">
+            We choose timeless over temporary.
+            Purpose over excess.
+            Quality over compromise.
+            Confidence over conformity.
+
+            We don&apos;t follow every trend.
+            We take inspiration from them, refine them, and create pieces that belong to your style.
+          </p>
+
+          <p className="text-xs sm:text-sm text-[#5f5f5d] max-w-xl mx-auto font-normal leading-relaxed">
+            <b> Every detail has a purpose.Every design has a story.</b>
           </p>
         </div>
       </section>
@@ -25,11 +49,11 @@ export default function AboutPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="bg-[#f7f4ed] border border-[#eceae4] rounded-xl p-8 space-y-4">
           <div className="w-12 h-12 rounded-lg bg-[#e58a2b]/10 border border-[#e58a2b]/20 text-[#e58a2b] flex items-center justify-center">
-            <Award className="w-6 h-6" />
+            <Clock className="w-6 h-6" />
           </div>
-          <h3 className="text-lg font-bold uppercase text-[#1c1c1c] font-serif">280 GSM Textile Standard</h3>
+          <h3 className="text-lg font-bold uppercase text-[#1c1c1c] font-serif">Made for Everyday</h3>
           <p className="text-xs text-[#5f5f5d] leading-relaxed">
-            We exclusively use 280 GSM long-staple combed cotton for our streetwear tees and hoodies. This provides a structural silhouette that maintains shape and drape through endless wear.
+            From busy mornings to weekend plans, find a bag that keeps your essentials close and feels right for wherever the day takes you.
           </p>
         </div>
 
@@ -37,19 +61,19 @@ export default function AboutPage() {
           <div className="w-12 h-12 rounded-lg bg-[#e58a2b]/10 border border-[#e58a2b]/20 text-[#e58a2b] flex items-center justify-center">
             <Sparkles className="w-6 h-6" />
           </div>
-          <h3 className="text-lg font-bold uppercase text-[#1c1c1c] font-serif">Architectural Cut</h3>
+          <h3 className="text-lg font-bold uppercase text-[#1c1c1c] font-serif">Style with Purpose</h3>
           <p className="text-xs text-[#5f5f5d] leading-relaxed">
-            Every shoulder seam, lapel angle, and sleeve cuff is engineered for modern movement. Our drop-shoulder tees and Italian wool coats balance oversized ease with sharp tailored elegance.
+            Thoughtful details and timeless style make it easy to choose a bag that works with your routine and feels like your own.
           </p>
         </div>
 
         <div className="bg-[#f7f4ed] border border-[#eceae4] rounded-xl p-8 space-y-4">
           <div className="w-12 h-12 rounded-lg bg-[#e58a2b]/10 border border-[#e58a2b]/20 text-[#e58a2b] flex items-center justify-center">
-            <ShieldCheck className="w-6 h-6" />
+            <Heart className="w-6 h-6" />
           </div>
-          <h3 className="text-lg font-bold uppercase text-[#1c1c1c] font-serif">Sustainable Atelier</h3>
+          <h3 className="text-lg font-bold uppercase text-[#1c1c1c] font-serif">Favorite For Years</h3>
           <p className="text-xs text-[#5f5f5d] leading-relaxed">
-            We produce in limited, controlled drops to eliminate inventory waste. All garments utilize eco-conscious dyes and plastic-free recyclable packaging.
+            We choose lasting design over passing trends, creating bags that feel at home through changing seasons, plans, and chapters of life.
           </p>
         </div>
       </section>
