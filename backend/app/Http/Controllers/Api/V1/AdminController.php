@@ -215,9 +215,10 @@ class AdminController extends Controller
         $orders = Order::query()
             ->select([
                 'id', 'order_number', 'user_id', 'shipping_address', 'guest_email', 'status',
-                'payment_method', 'payment_status', 'total_amount', 'tracking_number', 'created_at',
+                'payment_method', 'payment_status', 'subtotal', 'discount_amount', 'shipping_fee',
+                'tax_amount', 'total_amount', 'tracking_number', 'courier_name', 'created_at',
             ])
-            ->with('user:id,name')
+            ->with(['user:id,name', 'items'])
             ->orderByDesc('created_at')
             ->simplePaginate(15);
         return response()->json(['success' => true, 'data' => $orders]);

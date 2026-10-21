@@ -1,4 +1,4 @@
-import type { Banner, Category, Product } from '@/types';
+import type { Address, Banner, Category, OrderItem, Product } from '@/types';
 
 export type DashboardTab = 'stats' | 'orders' | 'products' | 'create_product' | 'banners';
 
@@ -13,13 +13,20 @@ export interface DashboardOrder {
   id: number;
   order_number: string;
   user?: { name: string } | null;
-  shipping_address?: { first_name?: string; email?: string };
+  shipping_address?: Address;
   guest_email?: string | null;
   status: string;
   payment_method: string;
   payment_status: string;
+  subtotal: number;
+  discount_amount: number;
+  shipping_fee: number;
+  tax_amount: number;
   total_amount: number;
   tracking_number?: string;
+  courier_name?: string;
+  created_at: string;
+  items?: OrderItem[];
 }
 
 export type DashboardProduct = Omit<Product, 'category' | 'variants'> & {
