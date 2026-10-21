@@ -10,34 +10,46 @@ export const Footer = () => {
   return (
     <footer className="bg-[#1c1c1c] text-[#5f5f5d] pt-16 pb-12 border-t border-[#eceae4]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-[#eceae4]/20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:flex lg:justify-between gap-10 pb-12 border-b border-[#eceae4]/20">
 
           {/* Brand Ethos Column */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="md:col-span-2 lg:w-2/5 space-y-4">
             <div>
               <BrandLogo size="md" wordmarkClassName="text-[#fcfbf8]" />
-              <span className="block text-[9px] tracking-[0.3em] text-[#5f5f5d] uppercase font-sans font-medium mt-1">
+              {/* <span className="block text-[9px] tracking-[0.3em] text-[#5f5f5d] uppercase font-sans font-medium mt-1">
                 ATELIER & STYLING
-              </span>
+              </span> */}
             </div>
             <p className="text-xs text-[#5f5f5d] leading-relaxed max-w-sm">
-              Ember Edge is a contemporary fashion house crafting architectural menswear, minimalist womenswear, and premium children's apparel. Defined by 280 GSM luxury textiles and precision tailoring.
+             Ember Edge brings you stylish ladies handbags, elegant clutches, and trendy purses to complement every look. Carry elegance, define your style. 👜
             </p>
             <div className="flex space-x-4 pt-2">
-              <a href="#" className="p-2 bg-[#5f5f5d]/10 hover:bg-[#e58a2b] hover:text-[#1c1c1c] rounded-full transition-colors">
+              <a
+                href="https://www.instagram.com/emberedgepk"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit Ember Edge on Instagram"
+                className="p-2 bg-[#5f5f5d]/10 hover:bg-[#e58a2b] hover:text-[#1c1c1c] rounded-full transition-colors"
+              >
                 <Instagram className="w-4 h-4" />
               </a>
-              <a href="#" className="p-2 bg-[#5f5f5d]/10 hover:bg-[#e58a2b] hover:text-[#1c1c1c] rounded-full transition-colors">
+              <a
+                href="https://www.facebook.com/profile.php?id=61595397898136"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit Ember Edge on Facebook"
+                className="p-2 bg-[#5f5f5d]/10 hover:bg-[#e58a2b] hover:text-[#1c1c1c] rounded-full transition-colors"
+              >
                 <Facebook className="w-4 h-4" />
               </a>
-              <a href="#" className="p-2 bg-[#5f5f5d]/10 hover:bg-[#e58a2b] hover:text-[#1c1c1c] rounded-full transition-colors">
+              {/* <a href="#" className="p-2 bg-[#5f5f5d]/10 hover:bg-[#e58a2b] hover:text-[#1c1c1c] rounded-full transition-colors">
                 <Twitter className="w-4 h-4" />
-              </a>
+              </a> */}
             </div>
           </div>
 
           {/* Collections Column */}
-          <div>
+          {/* <div>
             <h3 className="text-xs font-bold text-[#fcfbf8] uppercase tracking-widest mb-4">Collections</h3>
             <ul className="space-y-2 text-xs">
               <li><Link href="/collections/men" className="hover:text-[#e58a2b] transition-colors">Men's Apparel</Link></li>
@@ -47,14 +59,14 @@ export const Footer = () => {
               <li><Link href="/shop?category=accessories" className="hover:text-[#e58a2b] transition-colors">Leather & Accessories</Link></li>
               <li><Link href="/shop?sort=newest" className="hover:text-[#e58a2b] transition-colors">New Arrivals</Link></li>
             </ul>
-          </div>
+          </div> */}
 
           {/* Customer Care Column */}
-          <div>
+          <div className="lg:w-1/5">
             <h3 className="text-xs font-bold text-[#fcfbf8] uppercase tracking-widest mb-4">Customer Care</h3>
             <ul className="space-y-2 text-xs">
-              <li><Link href="/track-order" className="hover:text-[#e58a2b] transition-colors text-[#e58a2b] font-semibold">Track Order</Link></li>
-              <li><Link href="/size-guide" className="hover:text-[#e58a2b] transition-colors">Size Guide & Fitting</Link></li>
+              {/* <li><Link href="/track-order" className="hover:text-[#e58a2b] transition-colors text-[#e58a2b] font-semibold">Track Order</Link></li>
+              <li><Link href="/size-guide" className="hover:text-[#e58a2b] transition-colors">Size Guide & Fitting</Link></li> */}
               <li><Link href="/account/orders" className="hover:text-[#e58a2b] transition-colors">Order History</Link></li>
               <li><Link href="/about" className="hover:text-[#e58a2b] transition-colors">Brand Story</Link></li>
               <li><Link href="/contact" className="hover:text-[#e58a2b] transition-colors">Contact Support</Link></li>
@@ -63,8 +75,8 @@ export const Footer = () => {
           </div>
 
           {/* Newsletter Column */}
-          <div>
-            <h3 className="text-xs font-bold text-[#fcfbf8] uppercase tracking-widest mb-4">Join The Atelier</h3>
+          <div className="lg:w-1/4">
+            <h3 className="text-xs font-bold text-[#fcfbf8] uppercase tracking-widest mb-4">Join The UPDATES</h3>
             <p className="text-xs text-[#5f5f5d] mb-3">
               Subscribe for private access to limited drops, runway launches, and exclusive member discounts.
             </p>
@@ -93,8 +105,8 @@ export const Footer = () => {
           <div className="flex items-center space-x-4 mt-4 sm:mt-0 font-mono text-[10px]">
             <span>SUPPORTED PAYMENTS:</span>
             <span className="bg-[#5f5f5d]/10 px-2 py-1 text-[#fcfbf8] rounded border border-[#eceae4]/20">JazzCash</span>
-            <span className="bg-[#5f5f5d]/10 px-2 py-1 text-[#fcfbf8] rounded border border-[#eceae4]/20">EasyPaisa</span>
-            <span className="bg-[#5f5f5d]/10 px-2 py-1 text-[#fcfbf8] rounded border border-[#eceae4]/20">Stripe / Visa</span>
+            {/* <span className="bg-[#5f5f5d]/10 px-2 py-1 text-[#fcfbf8] rounded border border-[#eceae4]/20">EasyPaisa</span>
+            <span className="bg-[#5f5f5d]/10 px-2 py-1 text-[#fcfbf8] rounded border border-[#eceae4]/20">Stripe / Visa</span> */}
             <span className="bg-[#5f5f5d]/10 px-2 py-1 text-[#fcfbf8] rounded border border-[#eceae4]/20">COD</span>
           </div>
         </div>
